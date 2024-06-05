@@ -1,0 +1,17 @@
+
+src/debug.cpp:921:54: error: Dereference of an invalid iterator: line.end() [derefInvalidIterator]
+            while( !line.empty() && isspace( line.end()[-1] ) ) {
+                                                     
+src/json.h:492:33: error: Out of bounds access in expression 'v[i]' because 'v' is empty and 'i' may be non-zero. [containerOutOfBounds]
+                    if( !read( v[i], throw_on_error ) ) {
+                                
+src/ranged.cpp:3451:25: warning: Possible dereference of an invalid iterator: it [derefInvalidIterator]
+    int aim_threshold = it->threshold;
+                        
+src/veh_interact.cpp:2762:16: error: Out of bounds access in 'pos[i+1]', if 'pos' size is 12 and 'i+1' is 12 [containerOutOfBounds]
+            pos[i + 1] = pos[i] + utf8_width( actions[i], true );
+               
+tests/normalized_test_names_test.cpp:31:49: error: Out of bounds access in expression 'test_case_name[i]' [containerOutOfBounds]
+        const char invalid_char = test_case_name[i];
+                                                
+total num: 5

@@ -1,0 +1,4 @@
+emplace2_07_control_flow.cpp:18:3: warning: Invalidated iterator accessed [STL_seki.InvalidatedIterator_seki]
+  *it;
+  ^~~
+1 warning generated.

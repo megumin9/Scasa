@@ -1,0 +1,4 @@
+assign1_02_control_flow.cpp:16:3: warning: Invalidated iterator accessed [alpha.cplusplus.InvalidatedIterator]
+   16 |   *it;
+      |   ^~~
+1 warning generated.

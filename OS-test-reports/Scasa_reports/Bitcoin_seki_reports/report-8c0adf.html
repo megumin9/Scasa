@@ -1,0 +1,887 @@
+<!doctype html>
+<html>
+<head>
+<title>test/skiplist_tests.cpp</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { position:relative }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.msg.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC The container is empty -->
+
+<!-- BUGTYPE PopEmptyContainer -->
+
+<!-- BUGCATEGORY Misuse of STL APIs -->
+
+<!-- BUGFILE /usr/STLcheck/sekitest/bitcoin/src/test/skiplist_tests.cpp -->
+
+<!-- FILENAME skiplist_tests.cpp -->
+
+<!-- FUNCTIONNAME test_method -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 8c0adf0aa6659ee84c1e7122a0dedb32 -->
+
+<!-- BUGLINE 159 -->
+
+<!-- BUGCOLUMN 18 -->
+
+<!-- BUGPATHLENGTH 3 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>STLcheck/sekitest/bitcoin/src/test/skiplist_tests.cpp</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 159, column 18</a><br />The container is empty</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -analyzer-opt-analyze-nested-blocks -analyzer-config-compatibility-mode true -analyzer-purge none -analyzer-checker core -analyzer-checker apiModeling -analyzer-checker unix -analyzer-checker deadcode -analyzer-checker cplusplus -analyzer-checker security.insecureAPI.UncheckedReturn -analyzer-checker security.insecureAPI.getpw -analyzer-checker security.insecureAPI.gets -analyzer-checker security.insecureAPI.mktemp -analyzer-checker security.insecureAPI.mkstemp -analyzer-checker security.insecureAPI.vfork -analyzer-checker nullability.NullPassedToNonnull -analyzer-checker nullability.NullReturnedFromNonnull -analyzer-checker STL_seki -analyzer-disable-checker deadcode -analyzer-config experimental-enable-naive-ctu-analysis=true -analyzer-config ctu-invocation-list=/usr/STLcheck/sekitest/bitcoin/csa-scan/invocations.yaml -analyzer-config suppress-null-return-paths=false -analyzer-config ctu-index-name=/usr/STLcheck/sekitest/bitcoin/csa-scan/externalDefMap.txt -analyzer-config aggressive-binary-operation-simplification=true -analyzer-config crosscheck-with-z3=true -analyzer-config ctu-dir=/usr/STLcheck/sekitest/bitcoin/csa-scan -w -ferror-limit 19 -Wstack-protector -Wall -Wextra -Wgnu -Wformat -Wformat-security -Wvla -Wshadow-field -Wthread-safety -Wloop-analysis -Wredundant-decls -Wunused-member-function -Wdate-time -Wconditional-uninitialized -Woverloaded-virtual -Wsuggest-override -Wimplicit-fallthrough -Wunreachable-code -Wdocumentation -Wno-unused-parameter -Wno-self-assign -o /usr/STLcheck/sekitest/bitcoin/csa-scan/reports -disable-free -analyze -x c++ test/skiplist_tests.cpp -target-cpu x86-64 -tune-cpu generic -triple x86_64-unknown-linux-gnu -resource-dir /usr/STLcheck/seki/build-release/lib/clang/15.0.0 -I . -I ../src/config -I . -I ./minisketch/include -I ./secp256k1/include -I ./univalue/include -I /usr/include -isystem /usr/STLcheck/clang/include/clang/v1 -isystem /usr/STLcheck/seki/build-release/lib/clang/15.0.0/include -isystem /usr/local/include -isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -std=c++20 -fcxx-exceptions -fexceptions -fmath-errno -fno-implicit-modules -pic-level 2 -pic-is-pie -stack-protector 3 -fvisibility default -fdeprecated-macro -fgnuc-version=4.2.1 -ffp-contract=on -fno-experimental-relative-c++-abi-vtables -O2 -fdebug-compilation-dir=/usr/STLcheck/sekitest/bitcoin/src -fcoverage-compilation-dir=/usr/STLcheck/sekitest/bitcoin/src -faddrsig -fstack-clash-protection -dwarf-version=5 -debugger-tuning=gdb -funwind-tables=2 -mconstructor-aliases -vectorize-loops -vectorize-slp -clear-ast-before-backend -main-file-name skiplist_tests.cpp -finline-functions -debug-info-kind=constructor -fcf-protection=full -fdiagnostics-hotness-threshold=0 -fdiagnostics-misexpect-tolerance=0 -setup-static-analyzer -D HAVE_CONFIG_H -U _FORTIFY_SOURCE -D _FORTIFY_SOURCE=3 -D HAVE_BUILD_INFO -D PROVIDE_FUZZ_MAIN_FUNCTION -D BOOST_MULTI_INDEX_DISABLE_SERIALIZATION -D BOOST_NO_CXX98_FUNCTION_BASE -D __GCC_HAVE_DWARF2_CFI_ASM=1
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"146": 1, "147": 1, "148": 1, "149": 1, "158": 1, "159": 1}, "3": {"452": 1}, "7093": {"137": 1, "143": 1}, "17892": {"207": 1, "218": 1, "251": 1, "252": 1}, "149834": {"352": 1, "353": 1, "673": 1, "674": 1, "705": 1, "706": 1, "707": 1, "708": 1, "709": 1, "710": 1, "711": 1}, "159911": {"168": 1, "169": 1, "170": 1, "262": 1, "263": 1, "718": 1, "719": 1, "720": 1, "721": 1, "726": 1, "727": 1, "747": 1, "792": 1, "793": 1, "794": 1, "795": 1, "866": 1, "867": 1, "868": 1, "869": 1}, "166187": {"229": 1, "230": 1, "231": 1, "441": 1, "442": 1, "443": 1, "444": 1, "450": 1, "452": 1, "723": 1, "724": 1, "725": 1, "764": 1, "765": 1, "766": 1}, "176745": {"53": 1}, "183014": {"40": 1, "63": 1, "64": 1, "65": 1, "66": 1, "67": 1, "73": 1, "74": 1, "75": 1, "76": 1, "82": 1, "83": 1, "84": 1, "85": 1, "91": 1, "92": 1, "93": 1, "99": 1, "102": 1}, "296411": {"98": 1, "112": 1, "113": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  // SHIFT + S
+  if (event.shiftKey && event.keyCode == 83) {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].click();
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+    <input type="checkbox" name="showArrows"
+           id="showArrows" style="margin-left: 10px" />
+    <label for="showArrows">
+       Show control flow arrows
+    </label>
+</form>
+
+<script type='text/javascript'>
+// Return range of numbers from a range [lower, upper).
+function range(lower, upper) {
+  var array = [];
+  for (var i = lower; i <= upper; ++i) {
+      array.push(i);
+  }
+  return array;
+}
+
+var getRelatedArrowIndices = function(pathId) {
+  // HTML numeration of events is a bit different than it is in the path.
+  // Everything is rotated one step to the right, so the last element
+  // (error diagnostic) has index 0.
+  if (pathId == 0) {
+    // arrowIndices has at least 2 elements
+    pathId = arrowIndices.length - 1;
+  }
+
+  return range(arrowIndices[pathId], arrowIndices[pathId - 1]);
+}
+
+var highlightArrowsForSelectedEvent = function() {
+  const selectedNum = findNum();
+  const arrowIndicesToHighlight = getRelatedArrowIndices(selectedNum);
+  arrowIndicesToHighlight.forEach((index) => {
+    var arrow = document.querySelector("#arrow" + index);
+    if(arrow) {
+      classListAdd(arrow, "selected")
+    }
+  });
+}
+
+var getAbsoluteBoundingRect = function(element) {
+  const relative = element.getBoundingClientRect();
+  return {
+    left: relative.left + window.pageXOffset,
+    right: relative.right + window.pageXOffset,
+    top: relative.top + window.pageYOffset,
+    bottom: relative.bottom + window.pageYOffset,
+    height: relative.height,
+    width: relative.width
+  };
+}
+
+var drawArrow = function(index) {
+  // This function is based on the great answer from SO:
+  //   https://stackoverflow.com/a/39575674/11582326
+  var start = document.querySelector("#start" + index);
+  var end   = document.querySelector("#end" + index);
+  var arrow = document.querySelector("#arrow" + index);
+
+  var startRect = getAbsoluteBoundingRect(start);
+  var endRect   = getAbsoluteBoundingRect(end);
+
+  // It is an arrow from a token to itself, no need to visualize it.
+  if (startRect.top == endRect.top &&
+      startRect.left == endRect.left)
+    return;
+
+  // Each arrow is a very simple Bézier curve, with two nodes and
+  // two handles.  So, we need to calculate four points in the window:
+  //   * start node
+  var posStart    = { x: 0, y: 0 };
+  //   * end node
+  var posEnd      = { x: 0, y: 0 };
+  //   * handle for the start node
+  var startHandle = { x: 0, y: 0 };
+  //   * handle for the end node
+  var endHandle   = { x: 0, y: 0 };
+  // One can visualize it as follows:
+  //
+  //         start handle
+  //        /
+  //       X"""_.-""""X
+  //         .'        \
+  //        /           start node
+  //       |
+  //       |
+  //       |      end node
+  //        \    /
+  //         `->X
+  //        X-'
+  //         \
+  //          end handle
+  //
+  // NOTE: (0, 0) is the top left corner of the window.
+
+  // We have 3 similar, but still different scenarios to cover:
+  //
+  //   1. Two tokens on different lines.
+  //             -xxx
+  //           /
+  //           \
+  //             -> xxx
+  //      In this situation, we draw arrow on the left curving to the left.
+  //   2. Two tokens on the same line, and the destination is on the right.
+  //             ____
+  //            /    \
+  //           /      V
+  //        xxx        xxx
+  //      In this situation, we draw arrow above curving upwards.
+  //   3. Two tokens on the same line, and the destination is on the left.
+  //        xxx        xxx
+  //           ^      /
+  //            \____/
+  //      In this situation, we draw arrow below curving downwards.
+  const onDifferentLines = startRect.top <= endRect.top - 5 ||
+    startRect.top >= endRect.top + 5;
+  const leftToRight = startRect.left < endRect.left;
+
+  // NOTE: various magic constants are chosen empirically for
+  //       better positioning and look
+  if (onDifferentLines) {
+    // Case #1
+    const topToBottom = startRect.top < endRect.top;
+    posStart.x = startRect.left - 1;
+    // We don't want to start it at the top left corner of the token,
+    // it doesn't feel like this is where the arrow comes from.
+    // For this reason, we start it in the middle of the left side
+    // of the token.
+    posStart.y = startRect.top + startRect.height / 2;
+
+    // End node has arrow head and we give it a bit more space.
+    posEnd.x = endRect.left - 4;
+    posEnd.y = endRect.top;
+
+    // Utility object with x and y offsets for handles.
+    var curvature = {
+      // We want bottom-to-top arrow to curve a bit more, so it doesn't
+      // overlap much with top-to-bottom curves (much more frequent).
+      x: topToBottom ? 15 : 25,
+      y: Math.min((posEnd.y - posStart.y) / 3, 10)
+    }
+
+    // When destination is on the different line, we can make a
+    // curvier arrow because we have space for it.
+    // So, instead of using
+    //
+    //   startHandle.x = posStart.x - curvature.x
+    //   endHandle.x   = posEnd.x - curvature.x
+    //
+    // We use the leftmost of these two values for both handles.
+    startHandle.x = Math.min(posStart.x, posEnd.x) - curvature.x;
+    endHandle.x = startHandle.x;
+
+    // Curving downwards from the start node...
+    startHandle.y = posStart.y + curvature.y;
+    // ... and upwards from the end node.
+    endHandle.y = posEnd.y - curvature.y;
+
+  } else if (leftToRight) {
+    // Case #2
+    // Starting from the top right corner...
+    posStart.x = startRect.right - 1;
+    posStart.y = startRect.top;
+
+    // ...and ending at the top left corner of the end token.
+    posEnd.x = endRect.left + 1;
+    posEnd.y = endRect.top - 1;
+
+    // Utility object with x and y offsets for handles.
+    var curvature = {
+      x: Math.min((posEnd.x - posStart.x) / 3, 15),
+      y: 5
+    }
+
+    // Curving to the right...
+    startHandle.x = posStart.x + curvature.x;
+    // ... and upwards from the start node.
+    startHandle.y = posStart.y - curvature.y;
+
+    // And to the left...
+    endHandle.x = posEnd.x - curvature.x;
+    // ... and upwards from the end node.
+    endHandle.y = posEnd.y - curvature.y;
+
+  } else {
+    // Case #3
+    // Starting from the bottom right corner...
+    posStart.x = startRect.right;
+    posStart.y = startRect.bottom;
+
+    // ...and ending also at the bottom right corner, but of the end token.
+    posEnd.x = endRect.right - 1;
+    posEnd.y = endRect.bottom + 1;
+
+    // Utility object with x and y offsets for handles.
+    var curvature = {
+      x: Math.min((posStart.x - posEnd.x) / 3, 15),
+      y: 5
+    }
+
+    // Curving to the left...
+    startHandle.x = posStart.x - curvature.x;
+    // ... and downwards from the start node.
+    startHandle.y = posStart.y + curvature.y;
+
+    // And to the right...
+    endHandle.x = posEnd.x + curvature.x;
+    // ... and downwards from the end node.
+    endHandle.y = posEnd.y + curvature.y;
+  }
+
+  // Put it all together into a path.
+  // More information on the format:
+  //   https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+  var pathStr = "M" + posStart.x + "," + posStart.y + " " +
+    "C" + startHandle.x + "," + startHandle.y + " " +
+    endHandle.x + "," + endHandle.y + " " +
+    posEnd.x + "," + posEnd.y;
+
+  arrow.setAttribute("d", pathStr);
+};
+
+var drawArrows = function() {
+  const numOfArrows = document.querySelectorAll("path[id^=arrow]").length;
+  for (var i = 0; i < numOfArrows; ++i) {
+    drawArrow(i);
+  }
+}
+
+var toggleArrows = function(event) {
+  const arrows = document.querySelector("#arrows");
+  if (event.target.checked) {
+    arrows.setAttribute("visibility", "visible");
+  } else {
+    arrows.setAttribute("visibility", "hidden");
+  }
+}
+
+window.addEventListener("resize", drawArrows);
+document.addEventListener("DOMContentLoaded", function() {
+  // Whenever we show invocation, locations change, i.e. we
+  // need to redraw arrows.
+  document
+    .querySelector('input[id="showinvocation"]')
+    .addEventListener("click", drawArrows);
+  // Hiding irrelevant lines also should cause arrow rerender.
+  document
+    .querySelector('input[name="showCounterexample"]')
+    .addEventListener("change", drawArrows);
+  document
+    .querySelector('input[name="showArrows"]')
+    .addEventListener("change", toggleArrows);
+  drawArrows();
+  // Default highlighting for the last event.
+  highlightArrowsForSelectedEvent();
+});
+</script>
+  
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".msg.selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var classListAdd = function(el, theClass) {
+  if(!el.className.baseVal)
+    el.className += " " + theClass;
+  else
+    el.className.baseVal += " " + theClass;
+};
+
+var classListRemove = function(el, theClass) {
+  var className = (!el.className.baseVal) ?
+      el.className : el.className.baseVal;
+    className = className.replace(" " + theClass, "");
+  if(!el.className.baseVal)
+    el.className = className;
+  else
+    el.className.baseVal = className;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+      classListRemove(s, "selected");
+    });
+    classListAdd(el, "selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+    highlightArrowsForSelectedEvent();
+};
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  // key 'j'
+  if (event.keyCode == 74) {
+    navigateTo(/*up=*/false);
+  // key 'k'
+  } else if (event.keyCode == 75) {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+
+<style type="text/css">
+  svg {
+      position:absolute;
+      top:0;
+      left:0;
+      height:100%;
+      width:100%;
+      pointer-events: none;
+      overflow: visible
+  }
+  .arrow {
+      stroke-opacity: 0.2;
+      stroke-width: 1;
+      marker-end: url(#arrowhead);
+  }
+
+  .arrow.selected {
+      stroke-opacity: 0.6;
+      stroke-width: 2;
+      marker-end: url(#arrowheadSelected);
+  }
+
+  .arrowhead {
+      orient: auto;
+      stroke: none;
+      opacity: 0.6;
+      fill: blue;
+  }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowheadSelected" class="arrowhead" opacity="0.6"
+            viewBox="0 0 10 10" refX="3" refY="5"
+            markerWidth="4" markerHeight="4">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+    <marker id="arrowhead" class="arrowhead" opacity="0.2"
+            viewBox="0 0 10 10" refX="3" refY="5"
+            markerWidth="4" markerHeight="4">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+  </defs>
+  <g id="arrows" fill="none" stroke="blue" visibility="hidden">
+    <path class="arrow" id="arrow0"/>
+    <path class="arrow" id="arrow1"/>
+    <path class="arrow" id="arrow2"/>
+    <path class="arrow" id="arrow3"/>
+    <path class="arrow" id="arrow4"/>
+    <path class="arrow" id="arrow5"/>
+    <path class="arrow" id="arrow6"/>
+    <path class="arrow" id="arrow7"/>
+    <path class="arrow" id="arrow8"/>
+    <path class="arrow" id="arrow9"/>
+    <path class="arrow" id="arrow10"/>
+    <path class="arrow" id="arrow11"/>
+    <path class="arrow" id="arrow12"/>
+    <path class="arrow" id="arrow13"/>
+
+  </g>
+</svg>
+<script type='text/javascript'>
+const arrowIndices = [ 14,6,3,0 ]
+</script>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='comment'>// Copyright (c) 2014-2022 The Bitcoin Core developers</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='comment'>// Distributed under the MIT software license, see the accompanying</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='comment'>// file COPYING or http://www.opensource.org/licenses/mit-license.php.</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"><span class='directive'>#include &lt;chain.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"><span class='directive'>#include &lt;test/util/random.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line"><span class='directive'>#include &lt;test/util/setup_common.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='directive'>#include &lt;vector&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line"><span class='directive'>#include &lt;boost/test/unit_test.hpp&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line"><span class='directive'>#define <span class='macro'>SKIPLIST_LENGTH<span class='macro_popup'>300000</span></span> 300000</span></td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line"><span class='macro'>BOOST_FIXTURE_TEST_SUITE(skiplist_tests, BasicTestingSetup)<span class='macro_popup'>namespace skiplist_tests { static boost::unit_test::ut_detail<br>::auto_test_unit_registrar skiplist_tests_registrar159 __attribute__<br>((__unused__))( "skiplist_tests", "test/skiplist_tests.cpp", 15<br>, boost::unit_test::decorator::collector_t::instance() ); typedef<br> BasicTestingSetup BOOST_AUTO_TEST_CASE_FIXTURE;</span></span></td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line"><span class='macro'>BOOST_AUTO_TEST_CASE(skiplist_test)<span class='macro_popup'>struct skiplist_test : public BOOST_AUTO_TEST_CASE_FIXTURE { void<br> test_method(); }; static void skiplist_test_invoker() { ::boost<br>::unit_test::unit_test_log.set_checkpoint( ::boost::unit_test<br>::const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(17), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "skiplist_test" &lt;&lt; "\" fixture ctor"<br>).str() ); skiplist_test t; ::boost::unit_test::unit_test_log<br>.set_checkpoint( ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(17), (::boost::wrap_stringstream().ref() &lt;&lt;<br> '"' &lt;&lt; "skiplist_test" &lt;&lt; "\" fixture setup").str<br>() ); boost::unit_test::setup_conditional(t); ::boost::unit_test<br>::unit_test_log.set_checkpoint( ::boost::unit_test::const_string<br>( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(17), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "skiplist_test" &lt;&lt; "\" test entry"<br>).str() ); t.test_method(); ::boost::unit_test::unit_test_log<br>.set_checkpoint( ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(17), (::boost::wrap_stringstream().ref() &lt;&lt;<br> '"' &lt;&lt; "skiplist_test" &lt;&lt; "\" fixture teardown")<br>.str() ); boost::unit_test::teardown_conditional(t); ::boost::<br>unit_test::unit_test_log.set_checkpoint( ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(17), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "skiplist_test" &lt;&lt; "\" fixture dtor"<br>).str() ); } struct skiplist_test_id {}; static boost::unit_test<br>::ut_detail::auto_test_unit_registrar skiplist_test_registrar1710<br> __attribute__((__unused__))( boost::unit_test::make_test_case<br>( &amp;skiplist_test_invoker, "skiplist_test", "test/skiplist_tests.cpp"<br>, 17 ), boost::unit_test::decorator::collector_t::instance() )<br>; void skiplist_test::test_method()</span></span></td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line">    std::vector&lt;CBlockIndex&gt; vIndex(<span class='macro'>SKIPLIST_LENGTH<span class='macro_popup'>300000</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>int</span> i=0; i&lt;<span class='macro'>SKIPLIST_LENGTH<span class='macro_popup'>300000</span></span>; i++) {</td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line">        vIndex[i].nHeight = i;</td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line">        vIndex[i].pprev = (i == 0) ? <span class='keyword'>nullptr</span> : &amp;vIndex[i - 1];</td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line">        vIndex[i].BuildSkip();</td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>int</span> i=0; i&lt;<span class='macro'>SKIPLIST_LENGTH<span class='macro_popup'>300000</span></span>; i++) {</td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line">        <span class='keyword'>if</span> (i &gt; 0) {</td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line">            <span class='macro'>BOOST_CHECK(vIndex[i].pskip == &amp;vIndex[vIndex[i].pskip-&gt;nHeight])<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(29) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vIndex[i].pskip == &amp;vIndex[vIndex[i].pskip-&gt;nHeight<br>]), (::boost::unit_test::lazy_ostream::instance() &lt;&lt; ::<br>boost::unit_test::const_string( "vIndex[i].pskip == &amp;vIndex[vIndex[i].pskip-&gt;nHeight]"<br>, sizeof( "vIndex[i].pskip == &amp;vIndex[vIndex[i].pskip-&gt;nHeight]"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(29), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line">            <span class='macro'>BOOST_CHECK(vIndex[i].pskip-&gt;nHeight &lt; i)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(30) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vIndex[i].pskip-&gt;nHeight &lt; i), (::boost::unit_test::<br>lazy_ostream::instance() &lt;&lt; ::boost::unit_test::const_string<br>( "vIndex[i].pskip-&gt;nHeight &lt; i", sizeof( "vIndex[i].pskip-&gt;nHeight &lt; i"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(30), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line">        } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line">            <span class='macro'>BOOST_CHECK(vIndex[i].pskip == <span class='keyword'>nullptr</span>)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(32) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vIndex[i].pskip == nullptr), (::boost::unit_test::lazy_ostream<br>::instance() &lt;&lt; ::boost::unit_test::const_string( "vIndex[i].pskip == nullptr"<br>, sizeof( "vIndex[i].pskip == nullptr" ) - 1 )), ::boost::unit_test<br>::const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(32), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_PRED<br> , 0 ); } while( ::boost::test_tools::tt_detail::dummy_cond()<br> )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>int</span> i=0; i &lt; 1000; i++) {</td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line">        <span class='keyword'>int</span> from = InsecureRandRange(<span class='macro'>SKIPLIST_LENGTH<span class='macro_popup'>300000</span></span> - 1);</td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line">        <span class='keyword'>int</span> to = InsecureRandRange(from + 1);</td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line">        <span class='macro'>BOOST_CHECK(vIndex[SKIPLIST_LENGTH - 1].GetAncestor(from) == &amp;vIndex[from])<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(40) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vIndex[300000 - 1].GetAncestor(from) == &amp;vIndex[from]<br>), (::boost::unit_test::lazy_ostream::instance() &lt;&lt; ::boost<br>::unit_test::const_string( "vIndex[300000 - 1].GetAncestor(from) == &amp;vIndex[from]"<br>, sizeof( "vIndex[300000 - 1].GetAncestor(from) == &amp;vIndex[from]"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(40), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line">        <span class='macro'>BOOST_CHECK(vIndex[from].GetAncestor(to) == &amp;vIndex[to])<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(41) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vIndex[from].GetAncestor(to) == &amp;vIndex[to]), (::boost<br>::unit_test::lazy_ostream::instance() &lt;&lt; ::boost::unit_test<br>::const_string( "vIndex[from].GetAncestor(to) == &amp;vIndex[to]"<br>, sizeof( "vIndex[from].GetAncestor(to) == &amp;vIndex[to]" )<br> - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(41), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line">        <span class='macro'>BOOST_CHECK(vIndex[from].GetAncestor(0) == vIndex.data())<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(42) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vIndex[from].GetAncestor(0) == vIndex.data()), (::boost::<br>unit_test::lazy_ostream::instance() &lt;&lt; ::boost::unit_test<br>::const_string( "vIndex[from].GetAncestor(0) == vIndex.data()"<br>, sizeof( "vIndex[from].GetAncestor(0) == vIndex.data()" ) - 1<br> )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(42), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line"><span class='macro'>BOOST_AUTO_TEST_CASE(getlocator_test)<span class='macro_popup'>struct getlocator_test : public BOOST_AUTO_TEST_CASE_FIXTURE {<br> void test_method(); }; static void getlocator_test_invoker()<br> { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost::<br>unit_test::const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(46), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "getlocator_test" &lt;&lt; "\" fixture ctor"<br>).str() ); getlocator_test t; ::boost::unit_test::unit_test_log<br>.set_checkpoint( ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(46), (::boost::wrap_stringstream().ref() &lt;&lt;<br> '"' &lt;&lt; "getlocator_test" &lt;&lt; "\" fixture setup").<br>str() ); boost::unit_test::setup_conditional(t); ::boost::unit_test<br>::unit_test_log.set_checkpoint( ::boost::unit_test::const_string<br>( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(46), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "getlocator_test" &lt;&lt; "\" test entry"<br>).str() ); t.test_method(); ::boost::unit_test::unit_test_log<br>.set_checkpoint( ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(46), (::boost::wrap_stringstream().ref() &lt;&lt;<br> '"' &lt;&lt; "getlocator_test" &lt;&lt; "\" fixture teardown"<br>).str() ); boost::unit_test::teardown_conditional(t); ::boost<br>::unit_test::unit_test_log.set_checkpoint( ::boost::unit_test<br>::const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(46), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "getlocator_test" &lt;&lt; "\" fixture dtor"<br>).str() ); } struct getlocator_test_id {}; static boost::unit_test<br>::ut_detail::auto_test_unit_registrar getlocator_test_registrar4611<br> __attribute__((__unused__))( boost::unit_test::make_test_case<br>( &amp;getlocator_test_invoker, "getlocator_test", "test/skiplist_tests.cpp"<br>, 46 ), boost::unit_test::decorator::collector_t::instance() )<br>; void getlocator_test::test_method()</span></span></td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">    <span class='comment'>// Build a main chain 100000 blocks long.</span></td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line">    std::vector&lt;uint256&gt; vHashMain(100000);</td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">    std::vector&lt;CBlockIndex&gt; vBlocksMain(100000);</td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>unsigned</span> <span class='keyword'>int</span> i=0; i&lt;vBlocksMain.size(); i++) {</td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line">        vHashMain[i] = ArithToUint256(i); <span class='comment'>// Set the hash equal to the height, so we can quickly check the distances.</span></td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line">        vBlocksMain[i].nHeight = i;</td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line">        vBlocksMain[i].pprev = i ? &amp;vBlocksMain[i - 1] : <span class='keyword'>nullptr</span>;</td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line">        vBlocksMain[i].phashBlock = &amp;vHashMain[i];</td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line">        vBlocksMain[i].BuildSkip();</td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line">        <span class='macro'>BOOST_CHECK_EQUAL((<span class='keyword'>int</span>)UintToArith256(vBlocksMain[i].GetBlockHash()).GetLow64(), vBlocksMain[i].nHeight)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(57) ); ::boost::test_tools::tt_detail:: check_frwd ( ::boost<br>::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(57), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , (int)UintToArith256(vBlocksMain[i].GetBlockHash()).GetLow64<br>(), "(int)UintToArith256(vBlocksMain[i].GetBlockHash()).GetLow64()"<br> , vBlocksMain[i].nHeight, "vBlocksMain[i].nHeight" ); } while<br>( ::boost::test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line">        <span class='macro'>BOOST_CHECK(vBlocksMain[i].pprev == <span class='keyword'>nullptr</span> || vBlocksMain[i].nHeight == vBlocksMain[i].pprev-&gt;nHeight + 1)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(58) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vBlocksMain[i].pprev == nullptr || vBlocksMain[i].nHeight<br> == vBlocksMain[i].pprev-&gt;nHeight + 1), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ::boost::unit_test::const_string<br>( "vBlocksMain[i].pprev == nullptr || vBlocksMain[i].nHeight == vBlocksMain[i].pprev-&gt;nHeight + 1"<br>, sizeof( "vBlocksMain[i].pprev == nullptr || vBlocksMain[i].nHeight == vBlocksMain[i].pprev-&gt;nHeight + 1"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(58), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">    <span class='comment'>// Build a branch that splits off at block 49999, 50000 blocks long.</span></td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line">    std::vector&lt;uint256&gt; vHashSide(50000);</td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line">    std::vector&lt;CBlockIndex&gt; vBlocksSide(50000);</td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>unsigned</span> <span class='keyword'>int</span> i=0; i&lt;vBlocksSide.size(); i++) {</td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line">        vHashSide[i] = ArithToUint256(i + 50000 + (arith_uint256(1) &lt;&lt; 128)); <span class='comment'>// Add 1&lt;&lt;128 to the hashes, so GetLow64() still returns the height.</span></td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line">        vBlocksSide[i].nHeight = i + 50000;</td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line">        vBlocksSide[i].pprev = i ? &amp;vBlocksSide[i - 1] : (vBlocksMain.data()+49999);</td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line">        vBlocksSide[i].phashBlock = &amp;vHashSide[i];</td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line">        vBlocksSide[i].BuildSkip();</td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line">        <span class='macro'>BOOST_CHECK_EQUAL((<span class='keyword'>int</span>)UintToArith256(vBlocksSide[i].GetBlockHash()).GetLow64(), vBlocksSide[i].nHeight)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(70) ); ::boost::test_tools::tt_detail:: check_frwd ( ::boost<br>::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(70), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , (int)UintToArith256(vBlocksSide[i].GetBlockHash()).GetLow64<br>(), "(int)UintToArith256(vBlocksSide[i].GetBlockHash()).GetLow64()"<br> , vBlocksSide[i].nHeight, "vBlocksSide[i].nHeight" ); } while<br>( ::boost::test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line">        <span class='macro'>BOOST_CHECK(vBlocksSide[i].pprev == <span class='keyword'>nullptr</span> || vBlocksSide[i].nHeight == vBlocksSide[i].pprev-&gt;nHeight + 1)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(71) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vBlocksSide[i].pprev == nullptr || vBlocksSide[i].nHeight<br> == vBlocksSide[i].pprev-&gt;nHeight + 1), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ::boost::unit_test::const_string<br>( "vBlocksSide[i].pprev == nullptr || vBlocksSide[i].nHeight == vBlocksSide[i].pprev-&gt;nHeight + 1"<br>, sizeof( "vBlocksSide[i].pprev == nullptr || vBlocksSide[i].nHeight == vBlocksSide[i].pprev-&gt;nHeight + 1"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(71), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line">    <span class='comment'>// Build a CChain for the main branch.</span></td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line">    CChain chain;</td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">    chain.SetTip(vBlocksMain.back());</td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">    <span class='comment'>// Test 100 random starting points for locators.</span></td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>int</span> n=0; n&lt;100; n++) {</td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line">        <span class='keyword'>int</span> r = InsecureRandRange(150000);</td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">        CBlockIndex* tip = (r &lt; 100000) ? &amp;vBlocksMain[r] : &amp;vBlocksSide[r - 100000];</td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line">        CBlockLocator locator = GetLocator(tip);</td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line">        <span class='comment'>// The first result must be the block itself, the last one must be genesis.</span></td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line">        <span class='macro'>BOOST_CHECK(locator.vHave.front() == tip-&gt;GetBlockHash())<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(85) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (locator.vHave.front() == tip-&gt;GetBlockHash()), (::boost<br>::unit_test::lazy_ostream::instance() &lt;&lt; ::boost::unit_test<br>::const_string( "locator.vHave.front() == tip-&gt;GetBlockHash()"<br>, sizeof( "locator.vHave.front() == tip-&gt;GetBlockHash()" )<br> - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(85), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line">        <span class='macro'>BOOST_CHECK(locator.vHave.back() == vBlocksMain[0].GetBlockHash())<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(86) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (locator.vHave.back() == vBlocksMain[0].GetBlockHash()), (<br>::boost::unit_test::lazy_ostream::instance() &lt;&lt; ::boost<br>::unit_test::const_string( "locator.vHave.back() == vBlocksMain[0].GetBlockHash()"<br>, sizeof( "locator.vHave.back() == vBlocksMain[0].GetBlockHash()"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(86), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line">        <span class='comment'>// Entries 1 through 11 (inclusive) go back one step each.</span></td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line">        <span class='keyword'>for</span> (<span class='keyword'>unsigned</span> <span class='keyword'>int</span> i = 1; i &lt; 12 &amp;&amp; i &lt; locator.vHave.size() - 1; i++) {</td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line">            <span class='macro'>BOOST_CHECK_EQUAL(UintToArith256(locator.vHave[i]).GetLow64(), tip-&gt;nHeight - i)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(90) ); ::boost::test_tools::tt_detail:: check_frwd ( ::boost<br>::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(90), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , UintToArith256(locator.vHave[i]).GetLow64(), "UintToArith256(locator.vHave[i]).GetLow64()"<br> , tip-&gt;nHeight - i, "tip-&gt;nHeight - i" ); } while( ::boost<br>::test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line">        <span class='comment'>// The further ones (excluding the last one) go back with exponential steps.</span></td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">        <span class='keyword'>unsigned</span> <span class='keyword'>int</span> dist = 2;</td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line">        <span class='keyword'>for</span> (<span class='keyword'>unsigned</span> <span class='keyword'>int</span> i = 12; i &lt; locator.vHave.size() - 1; i++) {</td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line">            <span class='macro'>BOOST_CHECK_EQUAL(UintToArith256(locator.vHave[i - 1]).GetLow64() - UintToArith256(locator.vHave[i]).GetLow64(), dist)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(96) ); ::boost::test_tools::tt_detail:: check_frwd ( ::boost<br>::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(96), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , UintToArith256(locator.vHave[i - 1]).GetLow64() - UintToArith256<br>(locator.vHave[i]).GetLow64(), "UintToArith256(locator.vHave[i - 1]).GetLow64() - UintToArith256(locator.vHave[i]).GetLow64()"<br> , dist, "dist" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line">            dist *= 2;</td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line"><span class='macro'>BOOST_AUTO_TEST_CASE(findearliestatleast_test)<span class='macro_popup'>struct findearliestatleast_test : public BOOST_AUTO_TEST_CASE_FIXTURE<br> { void test_method(); }; static void findearliestatleast_test_invoker<br>() { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(102), (::boost::wrap_stringstream().ref() &lt;&lt; '"' &lt;&lt;<br> "findearliestatleast_test" &lt;&lt; "\" fixture ctor").str()<br> ); findearliestatleast_test t; ::boost::unit_test::unit_test_log<br>.set_checkpoint( ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(102), (::boost::wrap_stringstream().ref() &lt;&lt;<br> '"' &lt;&lt; "findearliestatleast_test" &lt;&lt; "\" fixture setup"<br>).str() ); boost::unit_test::setup_conditional(t); ::boost::unit_test<br>::unit_test_log.set_checkpoint( ::boost::unit_test::const_string<br>( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(102), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "findearliestatleast_test" &lt;&lt;<br> "\" test entry").str() ); t.test_method(); ::boost::unit_test<br>::unit_test_log.set_checkpoint( ::boost::unit_test::const_string<br>( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(102), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "findearliestatleast_test" &lt;&lt;<br> "\" fixture teardown").str() ); boost::unit_test::teardown_conditional<br>(t); ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(102), (::boost::wrap_stringstream().ref() &lt;&lt; '"' &lt;&lt;<br> "findearliestatleast_test" &lt;&lt; "\" fixture dtor").str()<br> ); } struct findearliestatleast_test_id {}; static boost::unit_test<br>::ut_detail::auto_test_unit_registrar findearliestatleast_test_registrar10212<br> __attribute__((__unused__))( boost::unit_test::make_test_case<br>( &amp;findearliestatleast_test_invoker, "findearliestatleast_test"<br>, "test/skiplist_tests.cpp", 102 ), boost::unit_test::decorator<br>::collector_t::instance() ); void findearliestatleast_test::test_method<br>()</span></span></td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line">    std::vector&lt;uint256&gt; vHashMain(100000);</td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line">    std::vector&lt;CBlockIndex&gt; vBlocksMain(100000);</td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>unsigned</span> <span class='keyword'>int</span> i=0; i&lt;vBlocksMain.size(); i++) {</td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line">        vHashMain[i] = ArithToUint256(i); <span class='comment'>// Set the hash equal to the height</span></td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line">        vBlocksMain[i].nHeight = i;</td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line">        vBlocksMain[i].pprev = i ? &amp;vBlocksMain[i - 1] : <span class='keyword'>nullptr</span>;</td></tr>
+<tr class="codeline" data-linenumber="110"><td class="num" id="LN110">110</td><td class="line">        vBlocksMain[i].phashBlock = &amp;vHashMain[i];</td></tr>
+<tr class="codeline" data-linenumber="111"><td class="num" id="LN111">111</td><td class="line">        vBlocksMain[i].BuildSkip();</td></tr>
+<tr class="codeline" data-linenumber="112"><td class="num" id="LN112">112</td><td class="line">        <span class='keyword'>if</span> (i &lt; 10) {</td></tr>
+<tr class="codeline" data-linenumber="113"><td class="num" id="LN113">113</td><td class="line">            vBlocksMain[i].nTime = i;</td></tr>
+<tr class="codeline" data-linenumber="114"><td class="num" id="LN114">114</td><td class="line">            vBlocksMain[i].nTimeMax = i;</td></tr>
+<tr class="codeline" data-linenumber="115"><td class="num" id="LN115">115</td><td class="line">        } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="116"><td class="num" id="LN116">116</td><td class="line">            <span class='comment'>// randomly choose something in the range [MTP, MTP*2]</span></td></tr>
+<tr class="codeline" data-linenumber="117"><td class="num" id="LN117">117</td><td class="line">            int64_t medianTimePast = vBlocksMain[i].GetMedianTimePast();</td></tr>
+<tr class="codeline" data-linenumber="118"><td class="num" id="LN118">118</td><td class="line">            <span class='keyword'>int</span> r{<span class='keyword'>int</span>(InsecureRandRange(medianTimePast))};</td></tr>
+<tr class="codeline" data-linenumber="119"><td class="num" id="LN119">119</td><td class="line">            vBlocksMain[i].nTime = uint32_t(r + medianTimePast);</td></tr>
+<tr class="codeline" data-linenumber="120"><td class="num" id="LN120">120</td><td class="line">            vBlocksMain[i].nTimeMax = std::max(vBlocksMain[i].nTime, vBlocksMain[i-1].nTimeMax);</td></tr>
+<tr class="codeline" data-linenumber="121"><td class="num" id="LN121">121</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="122"><td class="num" id="LN122">122</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="123"><td class="num" id="LN123">123</td><td class="line">    <span class='comment'>// Check that we set nTimeMax up correctly.</span></td></tr>
+<tr class="codeline" data-linenumber="124"><td class="num" id="LN124">124</td><td class="line">    <span class='keyword'>unsigned</span> <span class='keyword'>int</span> curTimeMax = 0;</td></tr>
+<tr class="codeline" data-linenumber="125"><td class="num" id="LN125">125</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>unsigned</span> <span class='keyword'>int</span> i=0; i&lt;vBlocksMain.size(); ++i) {</td></tr>
+<tr class="codeline" data-linenumber="126"><td class="num" id="LN126">126</td><td class="line">        curTimeMax = std::max(curTimeMax, vBlocksMain[i].nTime);</td></tr>
+<tr class="codeline" data-linenumber="127"><td class="num" id="LN127">127</td><td class="line">        <span class='macro'>BOOST_CHECK(curTimeMax == vBlocksMain[i].nTimeMax)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(127) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (curTimeMax == vBlocksMain[i].nTimeMax), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ::boost::unit_test::const_string<br>( "curTimeMax == vBlocksMain[i].nTimeMax", sizeof( "curTimeMax == vBlocksMain[i].nTimeMax"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(127), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="128"><td class="num" id="LN128">128</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="129"><td class="num" id="LN129">129</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="130"><td class="num" id="LN130">130</td><td class="line">    <span class='comment'>// Build a CChain for the main branch.</span></td></tr>
+<tr class="codeline" data-linenumber="131"><td class="num" id="LN131">131</td><td class="line">    CChain chain;</td></tr>
+<tr class="codeline" data-linenumber="132"><td class="num" id="LN132">132</td><td class="line">    chain.SetTip(vBlocksMain.back());</td></tr>
+<tr class="codeline" data-linenumber="133"><td class="num" id="LN133">133</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="134"><td class="num" id="LN134">134</td><td class="line">    <span class='comment'>// Verify that FindEarliestAtLeast is correct.</span></td></tr>
+<tr class="codeline" data-linenumber="135"><td class="num" id="LN135">135</td><td class="line">    <span class='keyword'>for</span> (<span class='keyword'>unsigned</span> <span class='keyword'>int</span> i=0; i&lt;10000; ++i) {</td></tr>
+<tr class="codeline" data-linenumber="136"><td class="num" id="LN136">136</td><td class="line">        <span class='comment'>// Pick a random element in vBlocksMain.</span></td></tr>
+<tr class="codeline" data-linenumber="137"><td class="num" id="LN137">137</td><td class="line">        <span class='keyword'>int</span> r = InsecureRandRange(vBlocksMain.size());</td></tr>
+<tr class="codeline" data-linenumber="138"><td class="num" id="LN138">138</td><td class="line">        int64_t test_time = vBlocksMain[r].nTime;</td></tr>
+<tr class="codeline" data-linenumber="139"><td class="num" id="LN139">139</td><td class="line">        CBlockIndex* ret = chain.FindEarliestAtLeast(test_time, 0);</td></tr>
+<tr class="codeline" data-linenumber="140"><td class="num" id="LN140">140</td><td class="line">        <span class='macro'>BOOST_CHECK(ret-&gt;nTimeMax &gt;= test_time)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(140) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (ret-&gt;nTimeMax &gt;= test_time), (::boost::unit_test::lazy_ostream<br>::instance() &lt;&lt; ::boost::unit_test::const_string( "ret-&gt;nTimeMax &gt;= test_time"<br>, sizeof( "ret-&gt;nTimeMax &gt;= test_time" ) - 1 )), ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(140), ::boost::test_tools::tt_detail::CHECK, ::boost::test_tools<br>::tt_detail::CHECK_PRED , 0 ); } while( ::boost::test_tools::<br>tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="141"><td class="num" id="LN141">141</td><td class="line">        <span class='macro'>BOOST_CHECK((ret-&gt;pprev==<span class='keyword'>nullptr</span>) || ret-&gt;pprev-&gt;nTimeMax &lt; test_time)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(141) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( ((ret-&gt;pprev==nullptr) || ret-&gt;pprev-&gt;nTimeMax &lt;<br> test_time), (::boost::unit_test::lazy_ostream::instance() &lt;&lt;<br> ::boost::unit_test::const_string( "(ret-&gt;pprev==nullptr) || ret-&gt;pprev-&gt;nTimeMax &lt; test_time"<br>, sizeof( "(ret-&gt;pprev==nullptr) || ret-&gt;pprev-&gt;nTimeMax &lt; test_time"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(141), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="142"><td class="num" id="LN142">142</td><td class="line">        <span class='macro'>BOOST_CHECK(vBlocksMain[r].GetAncestor(ret-&gt;nHeight) == ret)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(142) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (vBlocksMain[r].GetAncestor(ret-&gt;nHeight) == ret), (::boost<br>::unit_test::lazy_ostream::instance() &lt;&lt; ::boost::unit_test<br>::const_string( "vBlocksMain[r].GetAncestor(ret-&gt;nHeight) == ret"<br>, sizeof( "vBlocksMain[r].GetAncestor(ret-&gt;nHeight) == ret"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(142), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="143"><td class="num" id="LN143">143</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="144"><td class="num" id="LN144">144</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="145"><td class="num" id="LN145">145</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="146"><td class="num" id="LN146">146</td><td class="line"><span id="start5"><span class="mrange"><span id="start6"><span id="end6"><span id="start7"><span id="end7"><span id="start8"><span id="end8"><span id="start9"><span id="end9"><span id="start10"><span id="end10"><span id="start11"><span id="end11"><span id="start12"><span id="end12"><span id="start13"><span id="end13"><span class='macro'>BOOST_AUTO_TEST_CASE</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>(findearliestatleast_edge_test)<span class='macro_popup'>struct findearliestatleast_edge_test : public BOOST_AUTO_TEST_CASE_FIXTURE<br> { void test_method(); }; static void findearliestatleast_edge_test_invoker<br>() { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(146), (::boost::wrap_stringstream().ref() &lt;&lt; '"' &lt;&lt;<br> "findearliestatleast_edge_test" &lt;&lt; "\" fixture ctor").<br>str() ); findearliestatleast_edge_test t; ::boost::unit_test::<br>unit_test_log.set_checkpoint( ::boost::unit_test::const_string<br>( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(146), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "findearliestatleast_edge_test"<br> &lt;&lt; "\" fixture setup").str() ); boost::unit_test::setup_conditional<br>(t); ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(146), (::boost::wrap_stringstream().ref() &lt;&lt; '"' &lt;&lt;<br> "findearliestatleast_edge_test" &lt;&lt; "\" test entry").str<br>() ); t.test_method(); ::boost::unit_test::unit_test_log.set_checkpoint<br>( ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(146), (::boost::wrap_stringstream().ref() &lt;&lt;<br> '"' &lt;&lt; "findearliestatleast_edge_test" &lt;&lt; "\" fixture teardown"<br>).str() ); boost::unit_test::teardown_conditional(t); ::boost<br>::unit_test::unit_test_log.set_checkpoint( ::boost::unit_test<br>::const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(146), (::boost::wrap_stringstream<br>().ref() &lt;&lt; '"' &lt;&lt; "findearliestatleast_edge_test"<br> &lt;&lt; "\" fixture dtor").str() ); } struct findearliestatleast_edge_test_id<br> {}; static boost::unit_test::ut_detail::auto_test_unit_registrar<br> findearliestatleast_edge_test_registrar14613 __attribute__((<br>__unused__))( boost::unit_test::make_test_case( &amp;findearliestatleast_edge_test_invoker<br>, "findearliestatleast_edge_test", "test/skiplist_tests.cpp",<br> 146 ), boost::unit_test::decorator::collector_t::instance() )<br>; void findearliestatleast_edge_test::test_method()</span></span></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path1" class="msg msgEvent" style="margin-left:1ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">1</div></td><td>Calling 'findearliestatleast_edge_test::test_method'</td><td><div class="PathNav"><a href="#Path2" title="Next event (2)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="147"><td class="num" id="LN147">147</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="148"><td class="num" id="LN148">148</td><td class="line">    <span id="start4"><span id="end5">std</span></span>::list&lt;CBlockIndex&gt; blocks;</td></tr>
+<tr class="codeline" data-linenumber="149"><td class="num" id="LN149">149</td><td class="line">    <span id="start3"><span id="end4"><span class='keyword'>for</span></span></span> (<span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>int</span> timeMax <span id="start2"><span class="mrange"><span id="end3">:</span></span></span> {100, 100, 100, 200, 200, 200, 300, 300, 300}) {</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path2" class="msg msgEvent" style="margin-left:37ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">2</div></td><td><div class="PathNav"><a href="#Path1" title="Previous event (1)">&#x2190;</a></div></td><td>Assuming '__begin1' is equal to '__end1'</td><td><div class="PathNav"><a href="#EndPath" title="Next event (3)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="150"><td class="num" id="LN150">150</td><td class="line">        CBlockIndex* prev = blocks.empty() ? <span class='keyword'>nullptr</span> : &amp;blocks.back();</td></tr>
+<tr class="codeline" data-linenumber="151"><td class="num" id="LN151">151</td><td class="line">        blocks.emplace_back();</td></tr>
+<tr class="codeline" data-linenumber="152"><td class="num" id="LN152">152</td><td class="line">        blocks.back().nHeight = prev ? prev-&gt;nHeight + 1 : 0;</td></tr>
+<tr class="codeline" data-linenumber="153"><td class="num" id="LN153">153</td><td class="line">        blocks.back().pprev = prev;</td></tr>
+<tr class="codeline" data-linenumber="154"><td class="num" id="LN154">154</td><td class="line">        blocks.back().BuildSkip();</td></tr>
+<tr class="codeline" data-linenumber="155"><td class="num" id="LN155">155</td><td class="line">        blocks.back().nTimeMax = timeMax;</td></tr>
+<tr class="codeline" data-linenumber="156"><td class="num" id="LN156">156</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="157"><td class="num" id="LN157">157</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="158"><td class="num" id="LN158">158</td><td class="line">    <span id="start1"><span id="end2">CChain</span></span> chain;</td></tr>
+<tr class="codeline" data-linenumber="159"><td class="num" id="LN159">159</td><td class="line">    <span id="start0"><span id="end1">chain</span></span>.SetTip(<span class="mrange"><span id="end0">blocks</span>.back()</span>);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:18ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">3</div></td><td><div class="PathNav"><a href="#Path2" title="Previous event (2)">&#x2190;</a></div></td><td>The container is empty</td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="160"><td class="num" id="LN160">160</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="161"><td class="num" id="LN161">161</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(50, 0)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(161) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(161), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(50, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(50, 0)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="162"><td class="num" id="LN162">162</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(100, 0)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(162) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(162), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(100, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(100, 0)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="163"><td class="num" id="LN163">163</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(150, 0)-&gt;nHeight, 3)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(163) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(163), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(150, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(150, 0)-&gt;nHeight"<br> , 3, "3" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="164"><td class="num" id="LN164">164</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(200, 0)-&gt;nHeight, 3)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(164) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(164), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(200, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(200, 0)-&gt;nHeight"<br> , 3, "3" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="165"><td class="num" id="LN165">165</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(250, 0)-&gt;nHeight, 6)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(165) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(165), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(250, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(250, 0)-&gt;nHeight"<br> , 6, "6" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="166"><td class="num" id="LN166">166</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(300, 0)-&gt;nHeight, 6)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(166) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(166), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(300, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(300, 0)-&gt;nHeight"<br> , 6, "6" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="167"><td class="num" id="LN167">167</td><td class="line">    <span class='macro'>BOOST_CHECK(!chain.FindEarliestAtLeast(350, 0))<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(167) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (!chain.FindEarliestAtLeast(350, 0)), (::boost::unit_test::<br>lazy_ostream::instance() &lt;&lt; ::boost::unit_test::const_string<br>( "!chain.FindEarliestAtLeast(350, 0)", sizeof( "!chain.FindEarliestAtLeast(350, 0)"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(167), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="168"><td class="num" id="LN168">168</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="169"><td class="num" id="LN169">169</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 0)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(169) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(169), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(0, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(0, 0)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="170"><td class="num" id="LN170">170</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(-1, 0)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(170) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(170), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(-1, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(-1, 0)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="171"><td class="num" id="LN171">171</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="172"><td class="num" id="LN172">172</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(std::numeric_limits&lt;int64_t&gt;::min(), 0)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(172) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(172), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(std::numeric_limits&lt;int64_t&gt;<br>::min(), 0)-&gt;nHeight, "chain.FindEarliestAtLeast(std::numeric_limits&lt;int64_t&gt;::min(), 0)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="173"><td class="num" id="LN173">173</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(-int64_t(std::numeric_limits&lt;<span class='keyword'>unsigned</span> <span class='keyword'>int</span>&gt;::max()) - 1, 0)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(173) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(173), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(-int64_t(std::numeric_limits&lt;<br>unsigned int&gt;::max()) - 1, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(-int64_t(std::numeric_limits&lt;unsigned int&gt;::max()) - 1, 0)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="174"><td class="num" id="LN174">174</td><td class="line">    <span class='macro'>BOOST_CHECK(!chain.FindEarliestAtLeast(std::numeric_limits&lt;int64_t&gt;::max(), 0))<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(174) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (!chain.FindEarliestAtLeast(std::numeric_limits&lt;int64_t<br>&gt;::max(), 0)), (::boost::unit_test::lazy_ostream::instance<br>() &lt;&lt; ::boost::unit_test::const_string( "!chain.FindEarliestAtLeast(std::numeric_limits&lt;int64_t&gt;::max(), 0)"<br>, sizeof( "!chain.FindEarliestAtLeast(std::numeric_limits&lt;int64_t&gt;::max(), 0)"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(174), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="175"><td class="num" id="LN175">175</td><td class="line">    <span class='macro'>BOOST_CHECK(!chain.FindEarliestAtLeast(std::numeric_limits&lt;<span class='keyword'>unsigned</span> <span class='keyword'>int</span>&gt;::max(), 0))<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(175) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (!chain.FindEarliestAtLeast(std::numeric_limits&lt;unsigned<br> int&gt;::max(), 0)), (::boost::unit_test::lazy_ostream::instance<br>() &lt;&lt; ::boost::unit_test::const_string( "!chain.FindEarliestAtLeast(std::numeric_limits&lt;unsigned int&gt;::max(), 0)"<br>, sizeof( "!chain.FindEarliestAtLeast(std::numeric_limits&lt;unsigned int&gt;::max(), 0)"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(175), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="176"><td class="num" id="LN176">176</td><td class="line">    <span class='macro'>BOOST_CHECK(!chain.FindEarliestAtLeast(int64_t(std::numeric_limits&lt;<span class='keyword'>unsigned</span> <span class='keyword'>int</span>&gt;::max()) + 1, 0))<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(176) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (!chain.FindEarliestAtLeast(int64_t(std::numeric_limits&lt;<br>unsigned int&gt;::max()) + 1, 0)), (::boost::unit_test::lazy_ostream<br>::instance() &lt;&lt; ::boost::unit_test::const_string( "!chain.FindEarliestAtLeast(int64_t(std::numeric_limits&lt;unsigned int&gt;::max()) + 1, 0)"<br>, sizeof( "!chain.FindEarliestAtLeast(int64_t(std::numeric_limits&lt;unsigned int&gt;::max()) + 1, 0)"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(176), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="177"><td class="num" id="LN177">177</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="178"><td class="num" id="LN178">178</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, -1)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(178) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(178), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(0, -1)-&gt;nHeight, "chain.FindEarliestAtLeast(0, -1)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="179"><td class="num" id="LN179">179</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 0)-&gt;nHeight, 0)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(179) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(179), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(0, 0)-&gt;nHeight, "chain.FindEarliestAtLeast(0, 0)-&gt;nHeight"<br> , 0, "0" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="180"><td class="num" id="LN180">180</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 3)-&gt;nHeight, 3)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(180) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(180), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(0, 3)-&gt;nHeight, "chain.FindEarliestAtLeast(0, 3)-&gt;nHeight"<br> , 3, "3" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="181"><td class="num" id="LN181">181</td><td class="line">    <span class='macro'>BOOST_CHECK_EQUAL(chain.FindEarliestAtLeast(0, 8)-&gt;nHeight, 8)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(181) ); ::boost::test_tools::tt_detail:: check_frwd ( ::<br>boost::test_tools::tt_detail::equal_impl_frwd(), (::boost::unit_test<br>::lazy_ostream::instance() &lt;&lt; ""), ::boost::unit_test::<br>const_string( "test/skiplist_tests.cpp", sizeof( "test/skiplist_tests.cpp"<br> ) - 1 ), static_cast&lt;std::size_t&gt;(181), ::boost::test_tools<br>::tt_detail::CHECK, ::boost::test_tools::tt_detail::CHECK_EQUAL<br> , chain.FindEarliestAtLeast(0, 8)-&gt;nHeight, "chain.FindEarliestAtLeast(0, 8)-&gt;nHeight"<br> , 8, "8" ); } while( ::boost::test_tools::tt_detail::dummy_cond<br>() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="182"><td class="num" id="LN182">182</td><td class="line">    <span class='macro'>BOOST_CHECK(!chain.FindEarliestAtLeast(0, 9))<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(182) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (!chain.FindEarliestAtLeast(0, 9)), (::boost::unit_test::lazy_ostream<br>::instance() &lt;&lt; ::boost::unit_test::const_string( "!chain.FindEarliestAtLeast(0, 9)"<br>, sizeof( "!chain.FindEarliestAtLeast(0, 9)" ) - 1 )), ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(182), ::boost::test_tools::tt_detail::CHECK, ::boost::test_tools<br>::tt_detail::CHECK_PRED , 0 ); } while( ::boost::test_tools::<br>tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="183"><td class="num" id="LN183">183</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="184"><td class="num" id="LN184">184</td><td class="line">    CBlockIndex* ret1 = chain.FindEarliestAtLeast(100, 2);</td></tr>
+<tr class="codeline" data-linenumber="185"><td class="num" id="LN185">185</td><td class="line">    <span class='macro'>BOOST_CHECK(ret1-&gt;nTimeMax &gt;= 100 &amp;&amp; ret1-&gt;nHeight == 2)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(185) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (ret1-&gt;nTimeMax &gt;= 100 &amp;&amp; ret1-&gt;nHeight ==<br> 2), (::boost::unit_test::lazy_ostream::instance() &lt;&lt; ::<br>boost::unit_test::const_string( "ret1-&gt;nTimeMax &gt;= 100 &amp;&amp; ret1-&gt;nHeight == 2"<br>, sizeof( "ret1-&gt;nTimeMax &gt;= 100 &amp;&amp; ret1-&gt;nHeight == 2"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(185), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="186"><td class="num" id="LN186">186</td><td class="line">    <span class='macro'>BOOST_CHECK(!chain.FindEarliestAtLeast(300, 9))<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(186) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (!chain.FindEarliestAtLeast(300, 9)), (::boost::unit_test::<br>lazy_ostream::instance() &lt;&lt; ::boost::unit_test::const_string<br>( "!chain.FindEarliestAtLeast(300, 9)", sizeof( "!chain.FindEarliestAtLeast(300, 9)"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(186), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="187"><td class="num" id="LN187">187</td><td class="line">    CBlockIndex* ret2 = chain.FindEarliestAtLeast(200, 4);</td></tr>
+<tr class="codeline" data-linenumber="188"><td class="num" id="LN188">188</td><td class="line">    <span class='macro'>BOOST_CHECK(ret2-&gt;nTimeMax &gt;= 200 &amp;&amp; ret2-&gt;nHeight == 4)<span class='macro_popup'>do { ::boost::unit_test::unit_test_log.set_checkpoint( ::boost<br>::unit_test::const_string( "test/skiplist_tests.cpp", sizeof(<br> "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std::size_t<br>&gt;(188) ); ::boost::test_tools::tt_detail:: report_assertion<br> ( (ret2-&gt;nTimeMax &gt;= 200 &amp;&amp; ret2-&gt;nHeight ==<br> 4), (::boost::unit_test::lazy_ostream::instance() &lt;&lt; ::<br>boost::unit_test::const_string( "ret2-&gt;nTimeMax &gt;= 200 &amp;&amp; ret2-&gt;nHeight == 4"<br>, sizeof( "ret2-&gt;nTimeMax &gt;= 200 &amp;&amp; ret2-&gt;nHeight == 4"<br> ) - 1 )), ::boost::unit_test::const_string( "test/skiplist_tests.cpp"<br>, sizeof( "test/skiplist_tests.cpp" ) - 1 ), static_cast&lt;std<br>::size_t&gt;(188), ::boost::test_tools::tt_detail::CHECK, ::boost<br>::test_tools::tt_detail::CHECK_PRED , 0 ); } while( ::boost::<br>test_tools::tt_detail::dummy_cond() )</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="189"><td class="num" id="LN189">189</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="190"><td class="num" id="LN190">190</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="191"><td class="num" id="LN191">191</td><td class="line"><span class='macro'>BOOST_AUTO_TEST_SUITE_END()<span class='macro_popup'>static boost::unit_test::ut_detail::auto_test_unit_registrar end_suite_registrar19114<br> __attribute__((__unused__))( 1 ); }</span></span></td></tr>
+</table></body></html>

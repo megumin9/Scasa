@@ -1,0 +1,4 @@
+erase2_02_control_flow.cpp:16:3: warning: Invalidated iterator accessed [STL_seki.InvalidatedIterator_seki]
+  *it;
+  ^~~
+1 warning generated.

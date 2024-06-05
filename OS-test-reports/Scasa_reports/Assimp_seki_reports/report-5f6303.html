@@ -1,0 +1,874 @@
+<!doctype html>
+<html>
+<head>
+<title>/usr/STLcheck/sekitest/assimp/code/AssetLib/MDL/HalfLife/UniqueNameGenerator.cpp</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { position:relative }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.msg.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC Wrong iterator dereferenced -->
+
+<!-- BUGTYPE Iterator out of range -->
+
+<!-- BUGCATEGORY Misuse of STL APIs -->
+
+<!-- BUGFILE /usr/STLcheck/sekitest/assimp/code/AssetLib/MDL/HalfLife/UniqueNameGenerator.cpp -->
+
+<!-- FILENAME UniqueNameGenerator.cpp -->
+
+<!-- FUNCTIONNAME make_unique -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 5f6303827cd0d729c47e5e7f94863580 -->
+
+<!-- BUGLINE 159 -->
+
+<!-- BUGCOLUMN 13 -->
+
+<!-- BUGPATHLENGTH 5 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>code/AssetLib/MDL/HalfLife/UniqueNameGenerator.cpp</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 159, column 13</a><br />Wrong iterator dereferenced</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -analyzer-opt-analyze-nested-blocks -analyzer-config-compatibility-mode true -analyzer-purge none -analyzer-checker core -analyzer-checker apiModeling -analyzer-checker unix -analyzer-checker deadcode -analyzer-checker cplusplus -analyzer-checker security.insecureAPI.UncheckedReturn -analyzer-checker security.insecureAPI.getpw -analyzer-checker security.insecureAPI.gets -analyzer-checker security.insecureAPI.mktemp -analyzer-checker security.insecureAPI.mkstemp -analyzer-checker security.insecureAPI.vfork -analyzer-checker nullability.NullPassedToNonnull -analyzer-checker nullability.NullReturnedFromNonnull -analyzer-checker STL_seki -analyzer-disable-checker deadcode -analyzer-config experimental-enable-naive-ctu-analysis=true -analyzer-config ctu-invocation-list=/usr/STLcheck/sekitest/assimp/build/csa-scan/invocations.yaml -analyzer-config suppress-null-return-paths=false -analyzer-config ctu-index-name=/usr/STLcheck/sekitest/assimp/build/csa-scan/externalDefMap.txt -analyzer-config aggressive-binary-operation-simplification=true -analyzer-config crosscheck-with-z3=true -analyzer-config ctu-dir=/usr/STLcheck/sekitest/assimp/build/csa-scan -w -ferror-limit 19 -Wall -Wall -Werror -o /usr/STLcheck/sekitest/assimp/build/csa-scan/reports -disable-free -analyze -x c++ /usr/STLcheck/sekitest/assimp/code/AssetLib/MDL/HalfLife/UniqueNameGenerator.cpp -target-cpu x86-64 -tune-cpu generic -triple x86_64-unknown-linux-gnu -resource-dir /usr/STLcheck/seki/build-release/lib/clang/15.0.0 -I /usr/STLcheck/sekitest/assimp/build/include -I /usr/STLcheck/sekitest/assimp/build -I /usr/STLcheck/sekitest/assimp/include -I /usr/STLcheck/sekitest/assimp/code -I /usr/STLcheck/sekitest/assimp/. -I /usr/STLcheck/sekitest/assimp/code/../contrib/pugixml/src -I /usr/STLcheck/sekitest/assimp/code/../contrib/utf8cpp/source -I /usr/STLcheck/sekitest/assimp/code/../contrib/rapidjson/include -I /usr/STLcheck/sekitest/assimp/code/../contrib -I /usr/STLcheck/sekitest/assimp/code/../contrib/openddlparser/include -I /usr/STLcheck/sekitest/assimp/code/../include -I /usr/STLcheck/sekitest/assimp/build/code/../include -I /usr/include/minizip -isystem /usr/STLcheck/clang/include/clang/v1 -isystem /usr/STLcheck/seki/build-release/lib/clang/15.0.0/include -isystem /usr/local/include -isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -std=gnu++17 -fcxx-exceptions -fexceptions -fmath-errno -pic-level 2 -fhalf-no-semantic-interposition -fvisibility hidden -fdeprecated-macro -fgnuc-version=4.2.1 -ffp-contract=on -fno-experimental-relative-c++-abi-vtables -O0 -fdebug-compilation-dir=/usr/STLcheck/sekitest/assimp/build/code -fcoverage-compilation-dir=/usr/STLcheck/sekitest/assimp/build/code -faddrsig -debugger-tuning=gdb -relaxed-aliasing -mframe-pointer=all -funwind-tables=2 -mconstructor-aliases -clear-ast-before-backend -main-file-name UniqueNameGenerator.cpp -fdiagnostics-hotness-threshold=0 -fdiagnostics-misexpect-tolerance=0 -setup-static-analyzer -D ASSIMP_BUILD_DLL_EXPORT -D ASSIMP_BUILD_NO_C4D_IMPORTER -D ASSIMP_BUILD_NO_M3D_EXPORTER -D ASSIMP_BUILD_NO_M3D_IMPORTER -D ASSIMP_BUILD_NO_OWN_ZLIB -D ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1 -D MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0 -D OPENDDLPARSER_BUILD -D RAPIDJSON_HAS_STDSTRING=1 -D RAPIDJSON_NOMEMBERITERATORCLASS -D assimp_EXPORTS -D __GCC_HAVE_DWARF2_CFI_ASM=1
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"73": 1, "84": 1, "85": 1, "86": 1, "88": 1, "90": 1, "94": 1, "132": 1, "154": 1, "155": 1, "156": 1, "157": 1, "159": 1}, "4": {"4349": 1, "4350": 1, "4351": 1, "4352": 1, "4354": 1, "4355": 1, "4356": 1, "4357": 1, "4358": 1, "4359": 1, "4360": 1, "4361": 1, "4362": 1, "4363": 1}, "786": {"1515": 1, "1516": 1}, "8808": {"168": 1, "169": 1, "171": 1}, "11509": {"346": 1, "347": 1, "348": 1}, "12367": {"237": 1, "238": 1, "239": 1, "240": 1}, "12510": {"23": 1, "24": 1, "25": 1, "26": 1, "27": 1, "28": 1, "29": 1, "33": 1, "34": 1, "35": 1, "36": 1, "37": 1}, "119337": {"416": 1, "417": 1, "418": 1, "419": 1, "421": 1, "422": 1, "423": 1}, "121730": {"897": 1, "898": 1, "899": 1, "900": 1}, "121731": {"867": 1, "868": 1, "869": 1, "870": 1, "871": 1, "872": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  // SHIFT + S
+  if (event.shiftKey && event.keyCode == 83) {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].click();
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+    <input type="checkbox" name="showArrows"
+           id="showArrows" style="margin-left: 10px" />
+    <label for="showArrows">
+       Show control flow arrows
+    </label>
+</form>
+
+<script type='text/javascript'>
+// Return range of numbers from a range [lower, upper).
+function range(lower, upper) {
+  var array = [];
+  for (var i = lower; i <= upper; ++i) {
+      array.push(i);
+  }
+  return array;
+}
+
+var getRelatedArrowIndices = function(pathId) {
+  // HTML numeration of events is a bit different than it is in the path.
+  // Everything is rotated one step to the right, so the last element
+  // (error diagnostic) has index 0.
+  if (pathId == 0) {
+    // arrowIndices has at least 2 elements
+    pathId = arrowIndices.length - 1;
+  }
+
+  return range(arrowIndices[pathId], arrowIndices[pathId - 1]);
+}
+
+var highlightArrowsForSelectedEvent = function() {
+  const selectedNum = findNum();
+  const arrowIndicesToHighlight = getRelatedArrowIndices(selectedNum);
+  arrowIndicesToHighlight.forEach((index) => {
+    var arrow = document.querySelector("#arrow" + index);
+    if(arrow) {
+      classListAdd(arrow, "selected")
+    }
+  });
+}
+
+var getAbsoluteBoundingRect = function(element) {
+  const relative = element.getBoundingClientRect();
+  return {
+    left: relative.left + window.pageXOffset,
+    right: relative.right + window.pageXOffset,
+    top: relative.top + window.pageYOffset,
+    bottom: relative.bottom + window.pageYOffset,
+    height: relative.height,
+    width: relative.width
+  };
+}
+
+var drawArrow = function(index) {
+  // This function is based on the great answer from SO:
+  //   https://stackoverflow.com/a/39575674/11582326
+  var start = document.querySelector("#start" + index);
+  var end   = document.querySelector("#end" + index);
+  var arrow = document.querySelector("#arrow" + index);
+
+  var startRect = getAbsoluteBoundingRect(start);
+  var endRect   = getAbsoluteBoundingRect(end);
+
+  // It is an arrow from a token to itself, no need to visualize it.
+  if (startRect.top == endRect.top &&
+      startRect.left == endRect.left)
+    return;
+
+  // Each arrow is a very simple Bézier curve, with two nodes and
+  // two handles.  So, we need to calculate four points in the window:
+  //   * start node
+  var posStart    = { x: 0, y: 0 };
+  //   * end node
+  var posEnd      = { x: 0, y: 0 };
+  //   * handle for the start node
+  var startHandle = { x: 0, y: 0 };
+  //   * handle for the end node
+  var endHandle   = { x: 0, y: 0 };
+  // One can visualize it as follows:
+  //
+  //         start handle
+  //        /
+  //       X"""_.-""""X
+  //         .'        \
+  //        /           start node
+  //       |
+  //       |
+  //       |      end node
+  //        \    /
+  //         `->X
+  //        X-'
+  //         \
+  //          end handle
+  //
+  // NOTE: (0, 0) is the top left corner of the window.
+
+  // We have 3 similar, but still different scenarios to cover:
+  //
+  //   1. Two tokens on different lines.
+  //             -xxx
+  //           /
+  //           \
+  //             -> xxx
+  //      In this situation, we draw arrow on the left curving to the left.
+  //   2. Two tokens on the same line, and the destination is on the right.
+  //             ____
+  //            /    \
+  //           /      V
+  //        xxx        xxx
+  //      In this situation, we draw arrow above curving upwards.
+  //   3. Two tokens on the same line, and the destination is on the left.
+  //        xxx        xxx
+  //           ^      /
+  //            \____/
+  //      In this situation, we draw arrow below curving downwards.
+  const onDifferentLines = startRect.top <= endRect.top - 5 ||
+    startRect.top >= endRect.top + 5;
+  const leftToRight = startRect.left < endRect.left;
+
+  // NOTE: various magic constants are chosen empirically for
+  //       better positioning and look
+  if (onDifferentLines) {
+    // Case #1
+    const topToBottom = startRect.top < endRect.top;
+    posStart.x = startRect.left - 1;
+    // We don't want to start it at the top left corner of the token,
+    // it doesn't feel like this is where the arrow comes from.
+    // For this reason, we start it in the middle of the left side
+    // of the token.
+    posStart.y = startRect.top + startRect.height / 2;
+
+    // End node has arrow head and we give it a bit more space.
+    posEnd.x = endRect.left - 4;
+    posEnd.y = endRect.top;
+
+    // Utility object with x and y offsets for handles.
+    var curvature = {
+      // We want bottom-to-top arrow to curve a bit more, so it doesn't
+      // overlap much with top-to-bottom curves (much more frequent).
+      x: topToBottom ? 15 : 25,
+      y: Math.min((posEnd.y - posStart.y) / 3, 10)
+    }
+
+    // When destination is on the different line, we can make a
+    // curvier arrow because we have space for it.
+    // So, instead of using
+    //
+    //   startHandle.x = posStart.x - curvature.x
+    //   endHandle.x   = posEnd.x - curvature.x
+    //
+    // We use the leftmost of these two values for both handles.
+    startHandle.x = Math.min(posStart.x, posEnd.x) - curvature.x;
+    endHandle.x = startHandle.x;
+
+    // Curving downwards from the start node...
+    startHandle.y = posStart.y + curvature.y;
+    // ... and upwards from the end node.
+    endHandle.y = posEnd.y - curvature.y;
+
+  } else if (leftToRight) {
+    // Case #2
+    // Starting from the top right corner...
+    posStart.x = startRect.right - 1;
+    posStart.y = startRect.top;
+
+    // ...and ending at the top left corner of the end token.
+    posEnd.x = endRect.left + 1;
+    posEnd.y = endRect.top - 1;
+
+    // Utility object with x and y offsets for handles.
+    var curvature = {
+      x: Math.min((posEnd.x - posStart.x) / 3, 15),
+      y: 5
+    }
+
+    // Curving to the right...
+    startHandle.x = posStart.x + curvature.x;
+    // ... and upwards from the start node.
+    startHandle.y = posStart.y - curvature.y;
+
+    // And to the left...
+    endHandle.x = posEnd.x - curvature.x;
+    // ... and upwards from the end node.
+    endHandle.y = posEnd.y - curvature.y;
+
+  } else {
+    // Case #3
+    // Starting from the bottom right corner...
+    posStart.x = startRect.right;
+    posStart.y = startRect.bottom;
+
+    // ...and ending also at the bottom right corner, but of the end token.
+    posEnd.x = endRect.right - 1;
+    posEnd.y = endRect.bottom + 1;
+
+    // Utility object with x and y offsets for handles.
+    var curvature = {
+      x: Math.min((posStart.x - posEnd.x) / 3, 15),
+      y: 5
+    }
+
+    // Curving to the left...
+    startHandle.x = posStart.x - curvature.x;
+    // ... and downwards from the start node.
+    startHandle.y = posStart.y + curvature.y;
+
+    // And to the right...
+    endHandle.x = posEnd.x + curvature.x;
+    // ... and downwards from the end node.
+    endHandle.y = posEnd.y + curvature.y;
+  }
+
+  // Put it all together into a path.
+  // More information on the format:
+  //   https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+  var pathStr = "M" + posStart.x + "," + posStart.y + " " +
+    "C" + startHandle.x + "," + startHandle.y + " " +
+    endHandle.x + "," + endHandle.y + " " +
+    posEnd.x + "," + posEnd.y;
+
+  arrow.setAttribute("d", pathStr);
+};
+
+var drawArrows = function() {
+  const numOfArrows = document.querySelectorAll("path[id^=arrow]").length;
+  for (var i = 0; i < numOfArrows; ++i) {
+    drawArrow(i);
+  }
+}
+
+var toggleArrows = function(event) {
+  const arrows = document.querySelector("#arrows");
+  if (event.target.checked) {
+    arrows.setAttribute("visibility", "visible");
+  } else {
+    arrows.setAttribute("visibility", "hidden");
+  }
+}
+
+window.addEventListener("resize", drawArrows);
+document.addEventListener("DOMContentLoaded", function() {
+  // Whenever we show invocation, locations change, i.e. we
+  // need to redraw arrows.
+  document
+    .querySelector('input[id="showinvocation"]')
+    .addEventListener("click", drawArrows);
+  // Hiding irrelevant lines also should cause arrow rerender.
+  document
+    .querySelector('input[name="showCounterexample"]')
+    .addEventListener("change", drawArrows);
+  document
+    .querySelector('input[name="showArrows"]')
+    .addEventListener("change", toggleArrows);
+  drawArrows();
+  // Default highlighting for the last event.
+  highlightArrowsForSelectedEvent();
+});
+</script>
+  
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".msg.selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var classListAdd = function(el, theClass) {
+  if(!el.className.baseVal)
+    el.className += " " + theClass;
+  else
+    el.className.baseVal += " " + theClass;
+};
+
+var classListRemove = function(el, theClass) {
+  var className = (!el.className.baseVal) ?
+      el.className : el.className.baseVal;
+    className = className.replace(" " + theClass, "");
+  if(!el.className.baseVal)
+    el.className = className;
+  else
+    el.className.baseVal = className;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+      classListRemove(s, "selected");
+    });
+    classListAdd(el, "selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+    highlightArrowsForSelectedEvent();
+};
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  // key 'j'
+  if (event.keyCode == 74) {
+    navigateTo(/*up=*/false);
+  // key 'k'
+  } else if (event.keyCode == 75) {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+
+<style type="text/css">
+  svg {
+      position:absolute;
+      top:0;
+      left:0;
+      height:100%;
+      width:100%;
+      pointer-events: none;
+      overflow: visible
+  }
+  .arrow {
+      stroke-opacity: 0.2;
+      stroke-width: 1;
+      marker-end: url(#arrowhead);
+  }
+
+  .arrow.selected {
+      stroke-opacity: 0.6;
+      stroke-width: 2;
+      marker-end: url(#arrowheadSelected);
+  }
+
+  .arrowhead {
+      orient: auto;
+      stroke: none;
+      opacity: 0.6;
+      fill: blue;
+  }
+</style>
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowheadSelected" class="arrowhead" opacity="0.6"
+            viewBox="0 0 10 10" refX="3" refY="5"
+            markerWidth="4" markerHeight="4">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+    <marker id="arrowhead" class="arrowhead" opacity="0.2"
+            viewBox="0 0 10 10" refX="3" refY="5"
+            markerWidth="4" markerHeight="4">
+      <path d="M 0 0 L 10 5 L 0 10 z" />
+    </marker>
+  </defs>
+  <g id="arrows" fill="none" stroke="blue" visibility="hidden">
+    <path class="arrow" id="arrow0"/>
+    <path class="arrow" id="arrow1"/>
+    <path class="arrow" id="arrow2"/>
+    <path class="arrow" id="arrow3"/>
+    <path class="arrow" id="arrow4"/>
+    <path class="arrow" id="arrow5"/>
+    <path class="arrow" id="arrow6"/>
+    <path class="arrow" id="arrow7"/>
+    <path class="arrow" id="arrow8"/>
+    <path class="arrow" id="arrow9"/>
+    <path class="arrow" id="arrow10"/>
+
+  </g>
+</svg>
+<script type='text/javascript'>
+const arrowIndices = [ 11,9,7,4,1,0 ]
+</script>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='comment'>---------------------------------------------------------------------------</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='comment'>Open Asset Import Library (assimp)</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"><span class='comment'>---------------------------------------------------------------------------</span></td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"><span class='comment'>Copyright (c) 2006-2024, assimp team</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"><span class='comment'>All rights reserved.</span></td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='comment'>Redistribution and use of this software in source and binary forms,</span></td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line"><span class='comment'>with or without modification, are permitted provided that the following</span></td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line"><span class='comment'>conditions are met:</span></td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line"><span class='comment'>* Redistributions of source code must retain the above</span></td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line">  <span class='comment'>copyright notice, this list of conditions and the</span></td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line">  <span class='comment'>following disclaimer.</span></td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line"><span class='comment'>* Redistributions in binary form must reproduce the above</span></td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line">  <span class='comment'>copyright notice, this list of conditions and the</span></td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line">  <span class='comment'>following disclaimer in the documentation and/or other</span></td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line">  <span class='comment'>materials provided with the distribution.</span></td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line"><span class='comment'>* Neither the name of the assimp team, nor the names of its</span></td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line">  <span class='comment'>contributors may be used to endorse or promote products</span></td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line">  <span class='comment'>derived from this software without specific prior</span></td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line">  <span class='comment'>written permission of the assimp team.</span></td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line"><span class='comment'>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span></td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line"><span class='comment'>"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span></td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line"><span class='comment'>LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR</span></td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line"><span class='comment'>A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT</span></td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line"><span class='comment'>OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,</span></td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line"><span class='comment'>SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT</span></td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line"><span class='comment'>LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span></td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line"><span class='comment'>DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span></td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line"><span class='comment'>THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span></td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line"><span class='comment'>(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span></td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line"><span class='comment'>OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line"><span class='comment'>---------------------------------------------------------------------------</span></td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line"><span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line"><span class='comment'>/** @file UniqueNameGenerator.cpp</span></td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line"> <span class='comment'>*  @brief Implementation for the unique name generator.</span></td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line"><span class='directive'>#include "UniqueNameGenerator.h"</span></td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line"><span class='directive'>#include &lt;algorithm&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line"><span class='directive'>#include &lt;list&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line"><span class='directive'>#include &lt;map&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line"><span class='directive'>#include &lt;numeric&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line"><span class='keyword'>namespace</span> Assimp {</td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line"><span class='keyword'>namespace</span> MDL {</td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line"><span class='keyword'>namespace</span> HalfLife {</td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line">UniqueNameGenerator::UniqueNameGenerator() :</td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line">    template_name_(<span class='string_literal'>"unnamed"</span>),</td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line">    separator_(<span class='string_literal'>"_"</span>) {</td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">UniqueNameGenerator::UniqueNameGenerator(<span class='keyword'>const</span> <span class='keyword'>char</span> *template_name) :</td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line">    template_name_(template_name),</td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line">    separator_(<span class='string_literal'>"_"</span>) {</td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line">UniqueNameGenerator::UniqueNameGenerator(<span class='keyword'>const</span> <span class='keyword'>char</span> *template_name, <span class='keyword'>const</span> <span class='keyword'>char</span> *separator) :</td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line">    template_name_(template_name),</td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line">    separator_(separator) {</td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line">UniqueNameGenerator::~UniqueNameGenerator() = <span class='keyword'>default</span>;</td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line"><span class='keyword'>void</span> UniqueNameGenerator::make_unique(std::vector&lt;std::string&gt; &amp;names) {</td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line">    <span class='keyword'>struct</span> DuplicateInfo {</td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line">        DuplicateInfo() :</td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">            indices(),</td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line">            next_id(0) {</td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line">        std::list&lt;size_t&gt; indices;</td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">        size_t next_id;</td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line">    };</td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line">    <span id="start10">std</span>::vector&lt;size_t&gt; empty_names_indices;</td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line">    std::vector&lt;size_t&gt; template_name_duplicates;</td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line">    std::map&lt;std::string, DuplicateInfo&gt; names_to_duplicates;</td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line">    <span class='keyword'>const</span> std::string template_name_with_separator(template_name_ + separator_);</td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line">    <span class='keyword'>auto</span> format_name = [&amp;](<span class='keyword'>const</span> std::string &amp;base_name, size_t id) -&gt; std::string {</td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line">        <span class='keyword'>return</span> base_name + separator_ + std::to_string(id);</td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line">    };</td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">    <span class='keyword'>auto</span> generate_unique_name = [&amp;](<span class='keyword'>const</span> std::string &amp;base_name) -&gt; std::string {</td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line">        <span class='keyword'>auto</span> *duplicate_info = &amp;names_to_duplicates[base_name];</td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line">        std::string new_name;</td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line">        <span class='keyword'>bool</span> found_identical_name;</td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line">        <span class='keyword'>bool</span> tried_with_base_name_only = <span class='keyword'>false</span>;</td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line">        <span class='keyword'>do</span> {</td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line">            <span class='comment'>// Assume that no identical name exists.</span></td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">            found_identical_name = <span class='keyword'>false</span>;</td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line">            <span class='keyword'>if</span> (!tried_with_base_name_only) {</td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line">                <span class='comment'>// First try with only the base name.</span></td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line">                new_name = base_name;</td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line">            } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line">                <span class='comment'>// Create the name expected to be unique.</span></td></tr>
+<tr class="codeline" data-linenumber="110"><td class="num" id="LN110">110</td><td class="line">                new_name = format_name(base_name, duplicate_info-&gt;next_id);</td></tr>
+<tr class="codeline" data-linenumber="111"><td class="num" id="LN111">111</td><td class="line">            }</td></tr>
+<tr class="codeline" data-linenumber="112"><td class="num" id="LN112">112</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="113"><td class="num" id="LN113">113</td><td class="line">            <span class='comment'>// Check in the list of duplicates for an identical name.</span></td></tr>
+<tr class="codeline" data-linenumber="114"><td class="num" id="LN114">114</td><td class="line">            <span class='keyword'>for</span> (size_t i = 0;</td></tr>
+<tr class="codeline" data-linenumber="115"><td class="num" id="LN115">115</td><td class="line">                    i &lt; names.size() &amp;&amp;</td></tr>
+<tr class="codeline" data-linenumber="116"><td class="num" id="LN116">116</td><td class="line">                    !found_identical_name;</td></tr>
+<tr class="codeline" data-linenumber="117"><td class="num" id="LN117">117</td><td class="line">                    ++i) {</td></tr>
+<tr class="codeline" data-linenumber="118"><td class="num" id="LN118">118</td><td class="line">                <span class='keyword'>if</span> (new_name == names[i])</td></tr>
+<tr class="codeline" data-linenumber="119"><td class="num" id="LN119">119</td><td class="line">                    found_identical_name = <span class='keyword'>true</span>;</td></tr>
+<tr class="codeline" data-linenumber="120"><td class="num" id="LN120">120</td><td class="line">            }</td></tr>
+<tr class="codeline" data-linenumber="121"><td class="num" id="LN121">121</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="122"><td class="num" id="LN122">122</td><td class="line">            <span class='keyword'>if</span> (tried_with_base_name_only)</td></tr>
+<tr class="codeline" data-linenumber="123"><td class="num" id="LN123">123</td><td class="line">                ++duplicate_info-&gt;next_id;</td></tr>
+<tr class="codeline" data-linenumber="124"><td class="num" id="LN124">124</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="125"><td class="num" id="LN125">125</td><td class="line">            tried_with_base_name_only = <span class='keyword'>true</span>;</td></tr>
+<tr class="codeline" data-linenumber="126"><td class="num" id="LN126">126</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="127"><td class="num" id="LN127">127</td><td class="line">        } <span class='keyword'>while</span> (found_identical_name);</td></tr>
+<tr class="codeline" data-linenumber="128"><td class="num" id="LN128">128</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="129"><td class="num" id="LN129">129</td><td class="line">        <span class='keyword'>return</span> new_name;</td></tr>
+<tr class="codeline" data-linenumber="130"><td class="num" id="LN130">130</td><td class="line">    };</td></tr>
+<tr class="codeline" data-linenumber="131"><td class="num" id="LN131">131</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="132"><td class="num" id="LN132">132</td><td class="line">    <span id="start9"><span id="end10"><span class='keyword'>for</span></span></span> (size_t i = 0; <span id="start8"><span class="mrange"><span id="end9">i</span></span> &lt; names.size()</span>; ++i) {</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path1" class="msg msgEvent" style="margin-left:24ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">1</div></td><td>Assuming the condition is false</td><td><div class="PathNav"><a href="#Path2" title="Next event (2)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path2" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">2</div></td><td><div class="PathNav"><a href="#Path1" title="Previous event (1)">&#x2190;</a></div></td><td>Loop condition is false. Execution continues on line 154</td><td><div class="PathNav"><a href="#Path3" title="Next event (3)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="133"><td class="num" id="LN133">133</td><td class="line">        <span class='comment'>// Check for empty names.</span></td></tr>
+<tr class="codeline" data-linenumber="134"><td class="num" id="LN134">134</td><td class="line">        <span class='keyword'>if</span> (names[i].find_first_not_of(' ') == std::string::npos) {</td></tr>
+<tr class="codeline" data-linenumber="135"><td class="num" id="LN135">135</td><td class="line">            empty_names_indices.push_back(i);</td></tr>
+<tr class="codeline" data-linenumber="136"><td class="num" id="LN136">136</td><td class="line">            <span class='keyword'>continue</span>;</td></tr>
+<tr class="codeline" data-linenumber="137"><td class="num" id="LN137">137</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="138"><td class="num" id="LN138">138</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="139"><td class="num" id="LN139">139</td><td class="line">        <span class='comment'>/* Check for potential duplicate.</span></td></tr>
+<tr class="codeline" data-linenumber="140"><td class="num" id="LN140">140</td><td class="line">        <span class='comment'>a) Either if this name is the same as the template name or</span></td></tr>
+<tr class="codeline" data-linenumber="141"><td class="num" id="LN141">141</td><td class="line">        <span class='comment'>b) &lt;template name&gt;&lt;separator&gt; is found at the beginning. */</span></td></tr>
+<tr class="codeline" data-linenumber="142"><td class="num" id="LN142">142</td><td class="line">        <span class='keyword'>if</span> (names[i] == template_name_ ||</td></tr>
+<tr class="codeline" data-linenumber="143"><td class="num" id="LN143">143</td><td class="line">                names[i].substr(0, template_name_with_separator.length()) == template_name_with_separator)</td></tr>
+<tr class="codeline" data-linenumber="144"><td class="num" id="LN144">144</td><td class="line">            template_name_duplicates.push_back(i);</td></tr>
+<tr class="codeline" data-linenumber="145"><td class="num" id="LN145">145</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="146"><td class="num" id="LN146">146</td><td class="line">        <span class='comment'>// Map each unique name to it's duplicate.</span></td></tr>
+<tr class="codeline" data-linenumber="147"><td class="num" id="LN147">147</td><td class="line">        <span class='keyword'>if</span> (names_to_duplicates.count(names[i]) == 0)</td></tr>
+<tr class="codeline" data-linenumber="148"><td class="num" id="LN148">148</td><td class="line">            names_to_duplicates.insert({ names[i], DuplicateInfo()});</td></tr>
+<tr class="codeline" data-linenumber="149"><td class="num" id="LN149">149</td><td class="line">        <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="150"><td class="num" id="LN150">150</td><td class="line">            names_to_duplicates[names[i]].indices.push_back(i);</td></tr>
+<tr class="codeline" data-linenumber="151"><td class="num" id="LN151">151</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="152"><td class="num" id="LN152">152</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="153"><td class="num" id="LN153">153</td><td class="line">    <span class='comment'>// Make every non-empty name unique.</span></td></tr>
+<tr class="codeline" data-linenumber="154"><td class="num" id="LN154">154</td><td class="line">    <span id="start7"><span id="end8"><span class='keyword'>for</span></span></span> (<span class='keyword'>auto</span> it = <span id="start6"><span id="end7">names_to_duplicates</span></span>.begin();</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path3" class="msg msgControl" style="margin-left:5ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">3</div></td><td><div class="PathNav"><a href="#Path2" title="Previous event (2)">&#x2190;</a></div></td><td>Loop condition is true.  Entering loop body</td><td><div class="PathNav"><a href="#Path4" title="Next event (4)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="155"><td class="num" id="LN155">155</td><td class="line">            <span id="start5"><span id="end6">it</span></span> != names_to_duplicates.end(); ++it) {</td></tr>
+<tr class="codeline" data-linenumber="156"><td class="num" id="LN156">156</td><td class="line">        <span id="start4"><span id="end5"><span class='keyword'>for</span></span></span> (<span class='keyword'>auto</span> it2 = it<span id="start3"><span id="end4">-&gt;</span></span>second.indices.begin();</td></tr>
+<tr><td class="num"></td><td class="line"><div id="Path4" class="msg msgControl" style="margin-left:9ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexControl">4</div></td><td><div class="PathNav"><a href="#Path3" title="Previous event (3)">&#x2190;</a></div></td><td>Loop condition is true.  Entering loop body</td><td><div class="PathNav"><a href="#EndPath" title="Next event (5)">&#x2192;</a></div></td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="157"><td class="num" id="LN157">157</td><td class="line">                <span id="start2"><span id="end3">it2</span></span> != it-&gt;second.indices.end();</td></tr>
+<tr class="codeline" data-linenumber="158"><td class="num" id="LN158">158</td><td class="line">                ++it2)</td></tr>
+<tr class="codeline" data-linenumber="159"><td class="num" id="LN159">159</td><td class="line">            <span class="mrange"><span id="end0"><span id="start1"><span id="end2">names</span></span></span>[*it2]</span> <span id="start0"><span id="end1">=</span></span> generate_unique_name(it-&gt;first);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:13ex"><table class="msgT"><tr><td valign="top"><div class="PathIndex PathIndexEvent">5</div></td><td><div class="PathNav"><a href="#Path4" title="Previous event (4)">&#x2190;</a></div></td><td>Wrong iterator dereferenced</td></tr></table></div></td></tr>
+<tr class="codeline" data-linenumber="160"><td class="num" id="LN160">160</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="161"><td class="num" id="LN161">161</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="162"><td class="num" id="LN162">162</td><td class="line">    <span class='comment'>// Generate a unique name for every empty string.</span></td></tr>
+<tr class="codeline" data-linenumber="163"><td class="num" id="LN163">163</td><td class="line">    <span class='keyword'>if</span> (template_name_duplicates.size()) {</td></tr>
+<tr class="codeline" data-linenumber="164"><td class="num" id="LN164">164</td><td class="line">        <span class='comment'>// At least one string ressembles to &lt;template name&gt;.</span></td></tr>
+<tr class="codeline" data-linenumber="165"><td class="num" id="LN165">165</td><td class="line">        <span class='keyword'>for</span> (<span class='keyword'>auto</span> it = empty_names_indices.begin();</td></tr>
+<tr class="codeline" data-linenumber="166"><td class="num" id="LN166">166</td><td class="line">                it != empty_names_indices.end(); ++it)</td></tr>
+<tr class="codeline" data-linenumber="167"><td class="num" id="LN167">167</td><td class="line">            names[*it] = generate_unique_name(template_name_);</td></tr>
+<tr class="codeline" data-linenumber="168"><td class="num" id="LN168">168</td><td class="line">    } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="169"><td class="num" id="LN169">169</td><td class="line">        <span class='comment'>// No string alike &lt;template name&gt; exists.</span></td></tr>
+<tr class="codeline" data-linenumber="170"><td class="num" id="LN170">170</td><td class="line">        size_t i = 0;</td></tr>
+<tr class="codeline" data-linenumber="171"><td class="num" id="LN171">171</td><td class="line">        <span class='keyword'>for</span> (<span class='keyword'>auto</span> it = empty_names_indices.begin();</td></tr>
+<tr class="codeline" data-linenumber="172"><td class="num" id="LN172">172</td><td class="line">                it != empty_names_indices.end(); ++it, ++i)</td></tr>
+<tr class="codeline" data-linenumber="173"><td class="num" id="LN173">173</td><td class="line">            names[*it] = format_name(template_name_, i);</td></tr>
+<tr class="codeline" data-linenumber="174"><td class="num" id="LN174">174</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="175"><td class="num" id="LN175">175</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="176"><td class="num" id="LN176">176</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="177"><td class="num" id="LN177">177</td><td class="line">} <span class='comment'>// namespace HalfLife</span></td></tr>
+<tr class="codeline" data-linenumber="178"><td class="num" id="LN178">178</td><td class="line">} <span class='comment'>// namespace MDL</span></td></tr>
+<tr class="codeline" data-linenumber="179"><td class="num" id="LN179">179</td><td class="line">} <span class='comment'>// namespace Assimp</span></td></tr>
+</table></body></html>

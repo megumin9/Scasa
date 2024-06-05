@@ -1,0 +1,4 @@
+insert4_08_control_flow.cpp:22:3: warning: Invalidated iterator accessed [STL_seki.InvalidatedIterator_seki]
+  *it;
+  ^~~
+1 warning generated.

@@ -1,0 +1,36 @@
+clang-check: /home/lizhilin/STL/newllvm/llvm-project/clang/include/clang/AST/Expr.h:2997: const clang::Expr* clang::CallExpr::getArg(unsigned int) const: Assertion `Arg < getNumArgs() && "Arg access out of range!"' failed.
+ #0 0x00007f3dd3d3f614 PrintStackTraceSignalHandler(void*) Signals.cpp:0:0
+ #1 0x00007f3dd3d3cdb4 SignalHandler(int) Signals.cpp:0:0
+ #2 0x00007f3dd3774090 (/lib/x86_64-linux-gnu/libc.so.6+0x43090)
+ #3 0x00007f3dd377400b raise /build/glibc-wuryBv/glibc-2.31/signal/../sysdeps/unix/sysv/linux/raise.c:51:1
+ #4 0x00007f3dd3753859 abort /build/glibc-wuryBv/glibc-2.31/stdlib/abort.c:81:7
+ #5 0x00007f3dd3753729 get_sysdep_segment_value /build/glibc-wuryBv/glibc-2.31/intl/loadmsgcat.c:509:8
+ #6 0x00007f3dd3753729 _nl_load_domain /build/glibc-wuryBv/glibc-2.31/intl/loadmsgcat.c:970:34
+ #7 0x00007f3dd3764fd6 (/lib/x86_64-linux-gnu/libc.so.6+0x33fd6)
+ #8 0x00007f3dd083a6da clang::ento::CXXMemberCall::getArgExpr(unsigned int) const (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0xca6da)
+ #9 0x00007f3dd0839897 clang::ento::CallEvent::getArgSVal(unsigned int) const (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0xc9897)
+#10 0x00007f3dd0ba465e (anonymous namespace)::ContainerSizeModeling_seki::handleOperator(clang::ento::CallEvent const&, clang::ento::CheckerContext&, clang::ento::SVal, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, clang::ento::MemRegion const*) const (.isra.0) ContainerSizeModeling_seki.cpp:0:0
+#11 0x00007f3dd0ba5ce7 (anonymous namespace)::ContainerSizeModeling_seki::checkPostCall(clang::ento::CallEvent const&, clang::ento::CheckerContext&) const (.isra.0) ContainerSizeModeling_seki.cpp:0:0
+#12 0x00007f3dd0855ea0 void expandGraphWithCheckers<(anonymous namespace)::CheckCallContext>((anonymous namespace)::CheckCallContext, clang::ento::ExplodedNodeSet&, clang::ento::ExplodedNodeSet const&) CheckerManager.cpp:0:0
+#13 0x00007f3dd085607e clang::ento::CheckerManager::runCheckersForCallEvent(bool, clang::ento::ExplodedNodeSet&, clang::ento::ExplodedNodeSet const&, clang::ento::CallEvent const&, clang::ento::ExprEngine&, bool) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0xe607e)
+#14 0x00007f3dd08c12df clang::ento::ExprEngine::evalCall(clang::ento::ExplodedNodeSet&, clang::ento::ExplodedNode*, clang::ento::CallEvent const&) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0x1512df)
+#15 0x00007f3dd08c1f5f clang::ento::ExprEngine::VisitCallExpr(clang::CallExpr const*, clang::ento::ExplodedNode*, clang::ento::ExplodedNodeSet&) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0x151f5f)
+#16 0x00007f3dd089d99c clang::ento::ExprEngine::Visit(clang::Stmt const*, clang::ento::ExplodedNode*, clang::ento::ExplodedNodeSet&) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0x12d99c)
+#17 0x00007f3dd089e9a1 clang::ento::ExprEngine::ProcessStmt(clang::Stmt const*, clang::ento::ExplodedNode*) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0x12e9a1)
+#18 0x00007f3dd089eb92 clang::ento::ExprEngine::processCFGElement(clang::CFGElement, clang::ento::ExplodedNode*, unsigned int, clang::ento::NodeBuilderContext*) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0x12eb92)
+#19 0x00007f3dd0862d95 clang::ento::CoreEngine::HandlePostStmt(clang::CFGBlock const*, unsigned int, clang::ento::ExplodedNode*) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0xf2d95)
+#20 0x00007f3dd08631b3 clang::ento::CoreEngine::dispatchWorkItem(clang::ento::ExplodedNode*, clang::ProgramPoint, clang::ento::WorkListUnit const&) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0xf31b3)
+#21 0x00007f3dd08632f2 clang::ento::CoreEngine::ExecuteWorkList(clang::LocationContext const*, unsigned int, llvm::IntrusiveRefCntPtr<clang::ento::ProgramState const>) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangStaticAnalyzerCore.so.15git+0xf32f2)
+#22 0x00007f3dd58180bf (anonymous namespace)::AnalysisConsumer::HandleCode(clang::Decl*, unsigned int, clang::ento::ExprEngine::InliningModes, llvm::DenseSet<clang::Decl const*, llvm::DenseMapInfo<clang::Decl const*, void> >*) AnalysisConsumer.cpp:0:0
+#23 0x00007f3dd583dd3d (anonymous namespace)::AnalysisConsumer::HandleDeclsCallGraph(unsigned int) AnalysisConsumer.cpp:0:0
+#24 0x00007f3dd583f202 (anonymous namespace)::AnalysisConsumer::HandleTranslationUnit(clang::ASTContext&) AnalysisConsumer.cpp:0:0
+#25 0x00007f3dd018e939 clang::ParseAST(clang::Sema&, bool, bool) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/../lib/libclangParse.so.15git+0x38939)
+#26 0x00007f3dd55712e9 clang::FrontendAction::Execute() (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/libclangFrontend.so.15git+0x1492e9)
+#27 0x00007f3dd54ef2de clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/libclangFrontend.so.15git+0xc72de)
+#28 0x00007f3dd57b9d76 clang::tooling::FrontendActionFactory::runInvocation(std::shared_ptr<clang::CompilerInvocation>, clang::FileManager*, std::shared_ptr<clang::PCHContainerOperations>, clang::DiagnosticConsumer*) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/libclangTooling.so.15git+0x9ad76)
+#29 0x00007f3dd57b14a0 clang::tooling::ToolInvocation::runInvocation(char const*, clang::driver::Compilation*, std::shared_ptr<clang::CompilerInvocation>, std::shared_ptr<clang::PCHContainerOperations>) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/libclangTooling.so.15git+0x924a0)
+#30 0x00007f3dd57b55ae clang::tooling::ToolInvocation::run() (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/libclangTooling.so.15git+0x965ae)
+#31 0x00007f3dd57b81b2 clang::tooling::ClangTool::run(clang::tooling::ToolAction*) (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/../lib/libclangTooling.so.15git+0x991b2)
+#32 0x000055a5ee07ab23 main (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/clang-check+0x4b23)
+#33 0x00007f3dd3755083 __libc_start_main /build/glibc-wuryBv/glibc-2.31/csu/../csu/libc-start.c:342:3
+#34 0x000055a5ee07bf2e _start (/home/lizhilin/STL/newllvm/llvm-project/build-release/bin/clang-check+0x5f2e)

@@ -1,0 +1,4 @@
+emplace1_10_control_flow.cpp:17:3: warning: Past-the-end iterator dereferenced [alpha.cplusplus.IteratorRange]
+   17 |   *it;
+      |   ^~~
+1 warning generated.

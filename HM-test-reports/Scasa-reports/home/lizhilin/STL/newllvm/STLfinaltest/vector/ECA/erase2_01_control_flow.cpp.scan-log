@@ -1,0 +1,4 @@
+erase2_01_control_flow.cpp:15:3: warning: The container is empty [STL_seki.PopEmptyContainer_seki]
+  vector1.front();
+  ^~~~~~~~~~~~~~~
+1 warning generated.
