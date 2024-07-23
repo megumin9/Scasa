@@ -1,4 +1,0 @@
-swap1_08_control_flow.cpp:21:3: warning: The container is empty [STL_seki.PopEmptyContainer_seki]
-  vector1.front();
-  ^~~~~~~~~~~~~~~
-1 warning generated.

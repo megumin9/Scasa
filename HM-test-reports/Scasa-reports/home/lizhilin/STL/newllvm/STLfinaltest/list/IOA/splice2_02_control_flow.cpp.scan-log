@@ -1,4 +1,0 @@
-splice2_02_control_flow.cpp:18:3: warning: Iterator incremented behind the past-the-end iterator [STL_seki.IteratorRange_seki]
-  it++;
-  ^~~~
-1 warning generated.

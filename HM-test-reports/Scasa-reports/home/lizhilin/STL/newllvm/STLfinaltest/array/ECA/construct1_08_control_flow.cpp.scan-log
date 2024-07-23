@@ -1,4 +1,0 @@
-construct1_08_control_flow.cpp:19:3: warning: The container is empty [STL_seki.PopEmptyContainer_seki]
-  array1.front();
-  ^~~~~~~~~~~~~~
-1 warning generated.

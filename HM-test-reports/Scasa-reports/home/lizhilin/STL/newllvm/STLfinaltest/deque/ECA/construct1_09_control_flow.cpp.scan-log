@@ -1,4 +1,0 @@
-construct1_09_control_flow.cpp:16:3: warning: The container is empty [STL_seki.PopEmptyContainer_seki]
-  deque1.front();
-  ^~~~~~~~~~~~~~
-1 warning generated.

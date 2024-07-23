@@ -1,4 +1,0 @@
-equal1_07_control_flow.cpp:19:3: warning: Invalidated iterator accessed [alpha.cplusplus.InvalidatedIterator]
-   19 |   *it;
-      |   ^~~
-1 warning generated.

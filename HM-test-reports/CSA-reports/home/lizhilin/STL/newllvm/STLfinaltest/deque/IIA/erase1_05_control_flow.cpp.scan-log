@@ -1,4 +1,0 @@
-erase1_05_control_flow.cpp:18:3: warning: Past-the-end iterator dereferenced [alpha.cplusplus.IteratorRange]
-   18 |   *it;
-      |   ^~~
-1 warning generated.

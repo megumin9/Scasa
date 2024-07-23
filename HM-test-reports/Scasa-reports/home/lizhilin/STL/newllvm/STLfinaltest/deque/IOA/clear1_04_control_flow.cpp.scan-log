@@ -1,4 +1,0 @@
-clear1_04_control_flow.cpp:17:3: warning: Wrong iterator dereferenced [STL_seki.IteratorRange_seki]
-  deque1[0];
-  ^~~~~~~~~
-1 warning generated.

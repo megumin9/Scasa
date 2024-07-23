@@ -1,4 +1,0 @@
-push1_03_control_flow.cpp:16:3: warning: Wrong iterator dereferenced [STL_seki.IteratorRange_seki]
-  vector1[1];
-  ^~~~~~~~~~
-1 warning generated.

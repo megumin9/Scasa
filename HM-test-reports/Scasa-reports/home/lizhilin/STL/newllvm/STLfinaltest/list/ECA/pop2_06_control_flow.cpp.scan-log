@@ -1,4 +1,0 @@
-pop2_06_control_flow.cpp:17:3: warning: The container is empty [STL_seki.PopEmptyContainer_seki]
-  list1.front();
-  ^~~~~~~~~~~~~
-1 warning generated.

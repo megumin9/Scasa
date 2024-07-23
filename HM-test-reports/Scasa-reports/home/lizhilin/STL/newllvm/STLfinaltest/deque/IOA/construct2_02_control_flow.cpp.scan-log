@@ -1,4 +1,0 @@
-construct2_02_control_flow.cpp:15:3: warning: Wrong iterator dereferenced [STL_seki.IteratorRange_seki]
-  deque2[1];
-  ^~~~~~~~~
-1 warning generated.

@@ -1,4 +1,0 @@
-construct2_07_control_flow.cpp:17:3: warning: The container is empty [STL_seki.PopEmptyContainer_seki]
-  forward_list2.front();
-  ^~~~~~~~~~~~~~~~~~~~~
-1 warning generated.

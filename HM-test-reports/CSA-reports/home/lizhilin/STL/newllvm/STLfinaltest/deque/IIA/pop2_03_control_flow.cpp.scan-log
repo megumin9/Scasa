@@ -1,4 +1,0 @@
-pop2_03_control_flow.cpp:17:3: warning: Invalidated iterator accessed [alpha.cplusplus.InvalidatedIterator]
-   17 |   *it;
-      |   ^~~
-1 warning generated.
